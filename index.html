@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registrarse — Gramas y Suministros</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page">
+    <!-- top bar -->
+    <header class="topbar">
+      <div class="logo">
+        <div class="logo-mark">🌿</div>
+        <div class="logo-text">Gramas <span>y</span> Suministros</div>
+      </div>
+      <a class="pill pill-back" href="#">Volver</a>
+    </header>
+
+    <!-- main form -->
+    <main class="center">
+      <div class="form-card">
+        <div class="card-header">Registrarse</div>
+
+        <form class="register-form" autocomplete="off" novalidate>
+          <label class="field">
+            <div class="field-left">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="icono nombre completo">
+            </div>
+            <div class="field-right">
+              <div class="field-label">Nombre Completo</div>
+              <input type="text" placeholder="Ingrese su nombre completo" />
+            </div>
+          </label>
+
+          <label class="field">
+            <div class="field-left">
+              <img src="https://cdn-icons-png.flaticon.com/512/1944/1944250.png" alt="icono correo electrónico">
+            </div>
+            <div class="field-right">
+              <div class="field-label">
+                Dirección de correo
+                <span class="note-small">(Solo se permite correo electrónico)</span>
+              </div>
+              <input type="email" placeholder="ejemplo@correo.com" />
+            </div>
+          </label>
+
+          <label class="field">
+            <div class="field-left">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="icono nombre de usuario">
+            </div>
+            <div class="field-right">
+              <div class="field-label">Nombre de usuario</div>
+              <input type="text" placeholder="usuario123" />
+            </div>
+          </label>
+
+          <label class="field">
+            <div class="field-left">
+              <img src="https://icons.veryicon.com/png/o/miscellaneous/remitting-country-linear-icon/password-148.png" alt="icono contraseña">
+            </div>
+            <div class="field-right">
+              <div class="field-label">
+                Contraseña
+                <span class="note-small">(Debe contener letras y números)</span>
+              </div>
+              <input type="password" placeholder="" />
+            </div>
+          </label>
+
+          <label class="field">
+            <div class="field-left">
+              <img src="https://icons.veryicon.com/png/o/miscellaneous/remitting-country-linear-icon/password-148.png" alt="icono repetir contraseña">
+            </div>
+            <div class="field-right">
+              <div class="field-label">Repita su contraseña</div>
+              <input type="password" placeholder="" />
+            </div>
+          </label>
+
+          <div class="btn-row">
+            <button type="submit" class="btn-register">¡Registrarse! 😄</button>
+          </div>
+
+          <div class="footer-note">
+            ¿Ya tiene una cuenta? <a href="#">¡Inicie sesión!</a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
