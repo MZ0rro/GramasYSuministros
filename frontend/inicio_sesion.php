@@ -1,71 +1,72 @@
-<?php include("conexion.php"); ?>
+<?php
+session_start();
+include("conexion.php");
+
+$mensaje = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $email = trim($_POST["email"]);
+  $password = trim($_POST["password"]);
+
+  $query = "SELECT * FROM usuario WHERE email = '$email' AND estado = 'activo'";
+  $resultado = $conexion->query($query);
+
+  if ($resultado && $resultado->num_rows > 0) {
+    $usuario = $resultado->fetch_assoc();
+
+    if ($usuario["password_hash"] === $password) { // aquí podrías usar password_verify
+      $_SESSION["usuario_id"] = $usuario["id_usuario"];
+      $_SESSION["usuario_nombre"] = $usuario["nombre"];
+      $_SESSION["usuario_rol"] = $usuario["id_rol"];
+
+      header("Location: dashboard.php");
+      exit();
+    } else {
+      $mensaje = "⚠️ Contraseña incorrecta.";
+    }
+  } else {
+    $mensaje = "⚠️ Usuario no encontrado o inactivo.";
+  }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión — Gramas y Suministros</title>
-  <link rel="stylesheet" href="estilos/styles.css">
+  <link rel="stylesheet" href="estilos/global.css">
 </head>
-
 <body>
   <header>
     <div class="logo">
-      <img src="https://via.placeholder.com/120x60?text=Logo" alt="Logo">
-      <h1>Gramas <span>y</span> Suministros</h1>
+      <img src="estilos/logo.png" alt="Logo de Gramas y Suministros">
+      <h1>Gramas y Suministros</h1>
     </div>
     <nav>
-      <a href="index.php">Catálogo</a>
+      <a href="index.php">Inicio</a>
       <a href="registro.php">Registrarse</a>
     </nav>
   </header>
 
   <main>
-    <section class="formulario">
-      <h2>Iniciar Sesión</h2>
+    <h2 style="text-align:center; color:var(--verde); margin-bottom:20px;">Iniciar Sesión</h2>
+    <?php if ($mensaje) echo "<p style='color:red; text-align:center;'>$mensaje</p>"; ?>
 
-      <?php
-      if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $correo = $_POST["correo"];
-        $pass = $_POST["contrasena"];
+    <form method="POST">
+      <label>Correo electrónico</label>
+      <input type="email" name="email" required placeholder="ejemplo@correo.com">
 
-        $query = "SELECT * FROM usuario WHERE correo='$correo' AND contrasena='$pass'";
-        $resultado = $conexion->query($query);
+      <label>Contraseña</label>
+      <input type="password" name="password" required placeholder="********">
 
-        if ($resultado->num_rows > 0) {
-          header("Location: index.php");
-          exit();
-        } else {
-          echo "<p style='color:red;'>Usuario o contraseña incorrectos.</p>";
-        }
-      }
-      ?>
-
-      <form method="POST">
-        <label for="correo">Correo electrónico</label>
-        <input type="email" id="correo" name="correo" required placeholder="ejemplo@correo.com">
-
-        <label for="contrasena">Contraseña</label>
-        <input type="password" id="contrasena" name="contrasena" required placeholder="********">
-
-        <div class="opciones">
-          <a href="#">¿Olvidó su contraseña?</a>
-          <p>¿No tiene cuenta? <a href="registro.php">Regístrese aquí</a></p>
-        </div>
-
-        <div class="botones">
-          <a href="index.php" class="volver">Volver al catálogo</a>
-          <button type="submit" class="iniciar">Iniciar sesión</button>
-        </div>
-      </form>
-    </section>
+      <button type="submit" class="boton">Entrar</button>
+    </form>
   </main>
 
   <footer>
-    <p>© 2025 Gramas y Suministros. Todos los derechos reservados.</p>
+    © 2025 Gramas y Suministros — Todos los derechos reservados.
   </footer>
 </body>
-
 </html>

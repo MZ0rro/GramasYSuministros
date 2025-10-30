@@ -1,65 +1,55 @@
 <?php include("conexion.php"); ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Catálogo de productos — Gramas y Suministros</title>
-  <link rel="stylesheet" href="estilos/index.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gramas y Suministros — Catálogo</title>
+  <link rel="stylesheet" href="estilos/global.css">
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Catálogo de productos</h1>
-        <p class="lead">Explora los productos disponibles en nuestra tienda.</p>
-      </div>
-      <div>
-        <a href="index.php"><button>Inicio</button></a>
-        <a href="inicio_sesion.php"><button>Iniciar Sesión</button></a>
-        <a href="registro.php"><button>Registrarse</button></a>
-      </div>
-    </header>
+  <header>
+    <div class="logo">
+      <img src="estilos/logo.png" alt="Logo de Gramas y Suministros">
+      <h1>Gramas y Suministros</h1>
+    </div>
+    <nav>
+      <a href="index.php">Inicio</a>
+      <a href="#">Productos</a>
+      <a href="registro.php">Registrarse</a>
+      <a href="inicio_sesion.php">Iniciar sesión</a>
+    </nav>
+  </header>
 
-    <main>
-      <section class="grid">
-        <?php
-        $sql = "SELECT * FROM producto";
-        $resultado = $conexion->query($sql);
-        if ($resultado->num_rows > 0) {
-          while ($row = $resultado->fetch_assoc()) {
-            echo '<article class="card">';
-            echo '<img src="https://via.placeholder.com/600x400?text=' . urlencode($row["nombre"]) . '" alt="' . htmlspecialchars($row["nombre"]) . '">';
-            echo '<div class="meta">';
-            echo '<h2 class="title">' . htmlspecialchars($row["nombre"]) . '</h2>';
-            echo '<div class="price">$' . number_format($row["precio"], 0, ',', '.') . '</div>';
-            echo '</div>';
-            echo '<p class="desc">';
-            echo 'Marca: ' . htmlspecialchars($row["marca"]) . '<br>';
-            echo 'Material: ' . htmlspecialchars($row["material"]) . '<br>';
-            echo 'Peso: ' . htmlspecialchars($row["peso"]) . ' kg<br>';
-            echo 'Altura: ' . htmlspecialchars($row["altura"]) . ' cm<br>';
-            echo htmlspecialchars($row["descripcion"]);
-            echo '</p>';
-            echo '</article>';
-          }
-        } else {
-          echo "<p>No hay productos registrados en la base de datos.</p>";
+  <main>
+    <h2 style="color:var(--verde);">Catálogo de productos</h2>
+    <p>Explora nuestra selección de productos para tu jardín y espacios verdes.</p>
+
+    <div class="productos">
+      <?php
+      $sql = "SELECT * FROM producto";
+      $resultado = $conexion->query($sql);
+
+      if ($resultado && $resultado->num_rows > 0) {
+        while ($row = $resultado->fetch_assoc()) {
+          echo "<div class='card'>
+                  <img src='https://via.placeholder.com/400x250?text=" . urlencode($row['nombre']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>
+                  <div class='card-content'>
+                    <h3>" . htmlspecialchars($row['nombre']) . "</h3>
+                    <p>" . htmlspecialchars($row['descripcion']) . "</p>
+                    <p class='precio'>$" . number_format($row['precio'], 0, ',', '.') . "</p>
+                  </div>
+                </div>";
         }
-        ?>
-      </section>
-    </main>
+      } else {
+        echo "<p>No hay productos registrados en la base de datos.</p>";
+      }
+      ?>
+    </div>
+  </main>
 
-    <footer>
-      <div>© <span id="year"></span> Gramas y Suministros — Todos los derechos reservados</div>
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <footer>
+    © 2025 Gramas y Suministros — Todos los derechos reservados.
+  </footer>
 </body>
-
 </html>
