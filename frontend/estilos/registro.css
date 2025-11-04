@@ -1,0 +1,66 @@
+/* estilos/registro.css - formulario registro */
+* { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --green:#2f8f4e;
+  --bg:#f7f8fa;
+  --card:#fff;
+  --muted:#6b6b6b;
+  font-family:"Inter", system-ui, Arial, sans-serif;
+}
+
+body { background:var(--bg); color:#222; min-height:100vh; display:flex; flex-direction:column; }
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.03);
+}
+.logo { display:flex; gap:10px; align-items:center; }
+.logo-mark { font-size:1.35rem; }
+.logo-text { font-weight:700; color:var(--green); }
+
+.pill-back { background:transparent; border:1px solid #e0e0e0; padding:8px 12px; border-radius:999px; text-decoration:none; color:#333; }
+
+main.center { display:flex; align-items:center; justify-content:center; flex:1; padding:28px; }
+.form-card {
+  width:100%;
+  max-width:520px;
+  background:var(--card);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+.card-header { font-size:1.2rem; color:var(--green); margin-bottom:12px; }
+
+form label { display:block; font-size:0.9rem; color:#333; margin-top:10px; }
+form input {
+  width:100%;
+  padding:10px 12px;
+  margin-top:6px;
+  border:1px solid #e6e6e6;
+  border-radius:8px;
+  font-size:0.95rem;
+}
+
+.btn-row { margin-top:14px; display:flex; justify-content:flex-end; }
+.btn-register {
+  background:var(--green);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.footer-note { margin-top:12px; color:var(--muted); font-size:0.95rem; }
+.footer-note a { color:var(--green); text-decoration:none; }
+
+/* responsive */
+@media (max-width:560px) {
+  .form-card { padding:14px; }
+  .btn-row { justify-content:center; }
+}

@@ -1,0 +1,95 @@
+/* estilos/index.css - catálogo */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #2f8f4e;
+  --muted: #6b6b6b;
+  --bg: #f7f8fa;
+  --card: #ffffff;
+  --radius: 10px;
+  --shadow: 0 4px 10px rgba(0,0,0,0.06);
+  font-family: "Inter", system-ui, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: #222;
+  line-height: 1.4;
+  padding: 24px;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+header h1 { font-size: 1.6rem; color: var(--green); }
+header .lead { font-size: 0.95rem; color: var(--muted); margin-top:4px; }
+
+header div:last-child { display: flex; gap:12px; }
+header button, header a button {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+header a button { text-decoration:none; display:inline-block; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* tarjeta producto */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display:flex;
+  flex-direction:column;
+  min-height: 320px;
+}
+
+.card img {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  display:block;
+}
+
+.meta {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 14px 0 14px;
+}
+
+.title { font-size:1.05rem; margin:0; }
+.price { color: var(--green); font-weight:700; }
+
+.desc {
+  padding: 10px 14px 18px 14px;
+  color: #333;
+  font-size: 0.92rem;
+}
+
+/* footer */
+footer { text-align:center; margin-top:22px; color:var(--muted); font-size:0.9rem; }
+
+/* responsivo */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .grid { grid-template-columns: 1fr; }
+}
