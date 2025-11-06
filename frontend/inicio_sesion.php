@@ -1,7 +1,7 @@
 <?php
 // login.php
 session_start();
-include("conexion.php"); // Debe crear $conexion (mysqli)
+include("conexion.php"); // Debe definir $conexion (mysqli)
 
 // --- CONFIG ---
 define('CSRF_TTL', 60 * 15); // Token válido 15 minutos
@@ -42,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($email === '' || $password === '') {
             $mensaje = "⚠️ Completa los campos requeridos.";
         } else {
-            // Consulta preparada para evitar SQL injection
-            $stmt = $conexion->prepare("SELECT id_usuario, nombre, id_rol, password_hash FROM usuario WHERE email = ? AND estado = 'activo' LIMIT 1");
+            // Consulta preparada para traer columnas de contraseña posibles
+            $stmt = $conexion->prepare("SELECT id_usuario, nombre, id_rol, password_hash, `password` FROM usuario WHERE email = ? AND estado = 'activo' LIMIT 1");
             if ($stmt) {
                 $stmt->bind_param("s", $email);
                 $stmt->execute();
@@ -52,8 +52,63 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 if ($resultado && $resultado->num_rows > 0) {
                     $usuario = $resultado->fetch_assoc();
 
-                    // Verificar password (asume que en DB usas password_hash())
-                    if (password_verify($password, $usuario["password_hash"])) {
+                    // Determinar de qué columna venía la contraseña (soporta 'password_hash' o 'password')
+                    $stored = '';
+                    $pw_col = null;
+                    if (array_key_exists('password_hash', $usuario) && $usuario['password_hash'] !== null) {
+                        $stored = $usuario['password_hash'];
+                        $pw_col = 'password_hash';
+                    } elseif (array_key_exists('password', $usuario) && $usuario['password'] !== null) {
+                        $stored = $usuario['password'];
+                        $pw_col = 'password';
+                    }
+
+                    $logged_in = false;
+
+                    if ($stored !== '') {
+                        // Si la contraseña almacenada parece un hash compatible con password_verify (bcrypt/argon2)
+                        $looks_like_hash = (strpos($stored, '$2y$') === 0) || (strpos($stored, '$2a$') === 0) || (strpos($stored, '$argon2') === 0) || (strpos($stored, '$argon2i') === 0) || (strpos($stored, '$argon2id') === 0);
+
+                        if ($looks_like_hash) {
+                            // Verificamos con password_verify
+                            if (password_verify($password, $stored)) {
+                                $logged_in = true;
+                            } else {
+                                $logged_in = false;
+                            }
+                        } else {
+                            // Caso legacy: la BD tiene la contraseña en texto plano (o en formato no hashed)
+                            if (hash_equals((string)$stored, (string)$password)) {
+                                // Coincide: re-hashemos y actualizamos la misma columna para migrar
+                                $newHash = password_hash($password, PASSWORD_DEFAULT);
+                                // Actualizamos la columna desde la cual venía la contraseña
+                                if ($pw_col !== null) {
+                                    $upd = $conexion->prepare("UPDATE usuario SET {$pw_col} = ? WHERE id_usuario = ?");
+                                    if ($upd) {
+                                        $upd->bind_param("si", $newHash, $usuario['id_usuario']);
+                                        $upd->execute();
+                                        $upd->close();
+                                        $logged_in = true;
+                                        // Opcional: si quieres mantener nombre de columna 'password_hash' en vez de 'password',
+                                        // podrías agregar lógica extra para crear/llenar password_hash, pero esto es mínimo seguro.
+                                    } else {
+                                        $mensaje = "⚠️ Error interno al actualizar la contraseña.";
+                                        $logged_in = false;
+                                    }
+                                } else {
+                                    $mensaje = "⚠️ Error interno: columna de contraseña no encontrada.";
+                                    $logged_in = false;
+                                }
+                            } else {
+                                $logged_in = false;
+                            }
+                        }
+                    } else {
+                        $mensaje = "⚠️ No hay una contraseña almacenada para este usuario.";
+                        $logged_in = false;
+                    }
+
+                    if ($logged_in) {
                         // Autenticación correcta
                         session_regenerate_id(true); // evita fijación de sesión
                         $_SESSION["usuario_id"] = $usuario["id_usuario"];
@@ -63,7 +118,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         header("Location: dashboard.php");
                         exit();
                     } else {
-                        $mensaje = "⚠️ Contraseña incorrecta.";
+                        if ($mensaje === "") {
+                            $mensaje = "⚠️ Contraseña incorrecta.";
+                        }
                     }
                 } else {
                     $mensaje = "⚠️ Usuario no encontrado o inactivo.";
