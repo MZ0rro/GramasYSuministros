@@ -10,7 +10,7 @@
 <body>
   <header>
     <div class="logo">
-      <img src="img/logo.png" alt="Logo de Gramas y Suministros">
+      <img src="estilos/logo.png" alt="Logo de Gramas y Suministros">
     </div>
     <nav>
       <a href="index.php">Inicio</a>
