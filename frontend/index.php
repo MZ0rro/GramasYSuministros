@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gramas y Suministros — Catálogo</title>
   <link rel="stylesheet" href="estilos/global.css">
+  <link
+      rel="icon"
+      type="image/png"
+      href="img/icono.ico"
+    />
 </head>
 <body>
   <header>

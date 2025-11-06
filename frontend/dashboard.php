@@ -15,6 +15,11 @@ $rol = $_SESSION["usuario_rol"];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel — Gramas y Suministros</title>
   <link rel="stylesheet" href="estilos/global.css">
+  <link
+      rel="icon"
+      type="image/png"
+      href="img/icono.ico"
+    />
 </head>
 <body>
   <header>

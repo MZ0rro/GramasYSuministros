@@ -7,7 +7,7 @@
     <link
       rel="icon"
       type="image/png"
-      href="Img/Captura-de-pantalla-2025-11-01-191320.ico"
+      href="img/icono.ico"
     />
     <title>Inventario de Grama Sintética</title>
   </head>
@@ -27,9 +27,9 @@
     </header>
     <main>
       <div class="top-buttons">
-        <button class="btn">Regresar</button>
+      <a href="#"> <button class="btn">Regresar</button></a> 
         <h2>Inventario de Grama Sintética</h2>
-        <button class="btn"><a href="InsertarProducto.php">+</a></button>
+        <a href="InsertarProducto.php"><button  class="btn">+</button></a>
       </div>
       <table>
         <thead>
@@ -54,10 +54,10 @@
             <td>
               <button class="btn-more">...</button>
               <div class="menu">
-                <button>Más info.</button>
-                <button>Editar</button>
-                <button>Eliminar</button>
-                <button><a href="">Stock</a></button>
+                <a href="#"><button>Más info.</button></a>
+                <a href="#"><button>Editar</button></a>
+                <a href="#"><button>Eliminar</button></a>
+                <a href="Stock.php"><button>Stock</button></a>
               </div>
             </td>
           </tr>
@@ -69,12 +69,12 @@
             <td>14</td>
             <td>43.900</td>
             <td>
-              <button class="btn-more">...</button>
+            <button class="btn-more">...</button>
               <div class="menu">
-                <button>Más info.</button>
-                <button>Editar</button>
-                <button>Eliminar</button>
-                <button><a href="#">Stock</a></button>
+            <a href="#"><button>Más info.</button></a>
+                <a href="#"><button>Editar</button></a>
+                <a href="#"><button>Eliminar</button></a>
+                <a href="Stock.php"><button>Stock</button></a>
               </div>
             </td>
           </tr>
@@ -88,10 +88,10 @@
             <td>
               <button class="btn-more">...</button>
               <div class="menu">
-                <button>Más info.</button>
-                <button>Editar</button>
-                <button>Eliminar</button>
-                <button><a href="#">Stock</a></button>
+              <a href="#"><button>Más info.</button></a>
+                <a href="#"><button>Editar</button></a>
+                <a href="#"><button>Eliminar</button></a>
+                <a href="Stock.php"><button>Stock</button></a>
               </div>
             </td>
           </tr>
@@ -105,10 +105,10 @@
             <td>
               <button class="btn-more">...</button>
               <div class="menu">
-                <button>Más info.</button>
-                <button>Editar</button>
-                <button>Eliminar</button>
-                <button><a href="#">Stock</a></button>
+                <a href="#"><button>Más info.</button></a>
+                <a href="#"><button>Editar</button></a>
+                <a href="#"><button>Eliminar</button></a>
+                <a href="Stock.php"><button>Stock</button></a>
               </div>
             </td>
           </tr>
@@ -119,6 +119,30 @@
         <button class="btn">Regresar</button>
       </div>
     </main>
-    <script src="InventarioGrama.js"></script>
+    <script >
+      // Mostrar / ocultar menú desplegable al hacer clic en "..."
+const botonesMas = document.querySelectorAll(".btn-more");
+
+botonesMas.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // evita que se cierre inmediatamente
+    const menu = btn.nextElementSibling;
+
+    // Cierra todos los demás menús antes de abrir este
+    document.querySelectorAll(".menu").forEach((m) => {
+      if (m !== menu) m.style.display = "none";
+    });
+
+    // Alternar el menú actual
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  });
+});
+
+// Cierra el menú al hacer clic fuera
+document.addEventListener("click", () => {
+  document.querySelectorAll(".menu").forEach((m) => (m.style.display = "none"));
+});
+
+    </script>
   </body>
 </html>

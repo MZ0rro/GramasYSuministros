@@ -7,7 +7,7 @@
     <link
       rel="icon"
       type="image/png"
-      href="Img/Captura-de-pantalla-2025-11-01-191320.ico"
+      href="img/icono.ico"
     />
 
     <title>Insertar nuevo producto</title>
@@ -35,7 +35,6 @@
 
     <div class="container">
       <div class="form-grid">
-        <!-- Columna izquierda (imagen + botones) -->
         <div class="left-column">
           <div class="image-section">
             <div class="image-box" id="preview">png/jpg/jpeg</div>
@@ -49,12 +48,12 @@
           </div>
 
           <div class="actions">
-            <button class="btn">Regresar</button>
+           <a href="InventarioGrama.php"><button class="btn">Regresar</button></a> 
             <button class="btn">Guardar</button>
           </div>
         </div>
 
-        <!-- Columna derecha (campos + descripción) -->
+
         <div class="right-column">
           <div class="fields">
             <div class="field">
