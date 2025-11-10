@@ -14,7 +14,7 @@ $rol = $_SESSION["usuario_rol"];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel — Gramas y Suministros</title>
-  <link rel="stylesheet" href="estilos/global.css">
+  <link rel="stylesheet" href="estilos/dashboard.css">
   <link
       rel="icon"
       type="image/png"
@@ -39,7 +39,7 @@ $rol = $_SESSION["usuario_rol"];
     <?php if ($rol == 1): ?>
       <p>Rol: Administrador</p>
       <ul>
-        <li>Gestionar productos</li>
+        <a href="admin_inventario.php">Gestionar Inventario</a>
         <li>Gestionar usuarios</li>
         <li>Ver reportes</li>
       </ul>

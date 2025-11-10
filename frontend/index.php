@@ -26,31 +26,41 @@
   </header>
 
   <main>
-    <h2 style="color:var(--verde);">Catálogo de productos</h2>
-    <p>Explora nuestra selección de productos para tu jardín y espacios verdes.</p>
+  <h2 style="color:var(--verde);">Catálogo de productos</h2>
+  <p>Explora nuestra selección de productos para tu jardín y espacios verdes.</p>
 
-    <div class="productos">
-      <?php
-      $sql = "SELECT * FROM producto";
-      $resultado = $conexion->query($sql);
+  <div class="productos">
+    <?php
+    // Consulta todos los productos
+    $sql = "SELECT * FROM producto";
+    $resultado = $conexion->query($sql);
 
-      if ($resultado && $resultado->num_rows > 0) {
-        while ($row = $resultado->fetch_assoc()) {
-          echo "<div class='card'>
-                  <img src='https://via.placeholder.com/400x250?text=" . urlencode($row['nombre']) . "' alt='" . htmlspecialchars($row['nombre']) . "'>
-                  <div class='card-content'>
-                    <h3>" . htmlspecialchars($row['nombre']) . "</h3>
-                    <p>" . htmlspecialchars($row['descripcion']) . "</p>
-                    <p class='precio'>$" . number_format($row['precio'], 0, ',', '.') . "</p>
-                  </div>
-                </div>";
-        }
-      } else {
-        echo "<p>No hay productos registrados en la base de datos.</p>";
+    if ($resultado && $resultado->num_rows > 0) {
+      while ($row = $resultado->fetch_assoc()) {
+
+        // Si la columna 'imagen' contiene la ruta o nombre del archivo
+        // (por ejemplo: "uploads/maceta.jpg" o "img/maceta.jpg")
+        $imagen = !empty($row['imagen']) 
+                  ? htmlspecialchars($row['imagen']) 
+                  : 'https://via.placeholder.com/400x250?text=Sin+imagen';
+
+        echo "<div class='card'>
+                <img src='" . $imagen . "' alt='" . htmlspecialchars($row['nombre']) . "'>
+                <div class='card-content'>
+                  <h3>" . htmlspecialchars($row['nombre']) . "</h3>
+                  <p>" . htmlspecialchars($row['descripcion']) . "</p>
+                  <p class='precio'>$" . number_format($row['precio'], 0, ',', '.') . "</p>
+                </div>
+              </div>";
       }
-      ?>
-    </div>
-  </main>
+    } else {
+      echo "<p>No hay productos registrados en la base de datos.</p>";
+    }
+    ?>
+  </div>
+</main>
+
+
 
   <footer>
     © 2025 Gramas y Suministros — Todos los derechos reservados.

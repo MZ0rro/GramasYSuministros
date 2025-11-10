@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Historial de entradas</title>
-  <link rel="stylesheet" href="estilos/inventario.css">
+  <link rel="stylesheet" href="estilos/historial.css">
 </head>
 <body>
   <div class="container">

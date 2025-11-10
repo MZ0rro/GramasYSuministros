@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administrar Inventarios</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -55,10 +57,10 @@
               <td><button>Ver y agregar nueva entrada</button></td>
             </tr>
             <td>04</td>
-              <td>Abono orgánico compostado</td>
-              <td>46</td>
-              <td><span class="estado activo">Activo</span></td>
-              <td><button>Ver y agregar nueva entrada</button></td>
+            <td>Abono orgánico compostado</td>
+            <td>46</td>
+            <td><span class="estado activo">Activo</span></td>
+            <td><button>Ver y agregar nueva entrada</button></td>
             </tr>
             <tr>
               <td>05</td>
@@ -71,11 +73,12 @@
         </table>
       </div>
       <div class="btnn">
-      <button class="regresar">Regresar</button>      
-      <button class="regresar" ><a class="a1" href="eliminar_producto.php">Eliminar un producto</a></button>
+        <a class="regresar" href="dashboard.php">Regresar</a>
+        <a class="regresar" href="eliminar_producto.php">Eliminar un producto</a>
       </div>
+
     </main>
   </div>
 </body>
-</html>
 
+</html>

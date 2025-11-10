@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventario de Grama Sintética</title>
   <link rel="stylesheet" href="estilos/inventario.css">
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -75,7 +77,8 @@
         </table>
       </div>
 
-      <button class="regresar"><a href="admin_inventario.php">Regresar</a></button>
+      <a class="regresar" href="admin_inventario.php">Regresar</a>
+
     </main>
   </div>
 
@@ -90,4 +93,5 @@
     });
   </script>
 </body>
+
 </html>
