@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventario de Grama Sintética</title>
-  <link rel="stylesheet" href="inventario.css">
+  <link rel="stylesheet" href="estilos/inventario.css">
 </head>
 <body>
   <div class="container">
@@ -75,7 +75,7 @@
         </table>
       </div>
 
-      <button class="regresar"><a href="index.html">Regresar</a></button>
+      <button class="regresar"><a href="admin_inventario.php">Regresar</a></button>
     </main>
   </div>
 

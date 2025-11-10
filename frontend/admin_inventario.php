@@ -38,7 +38,7 @@
               <td>Grama Kikuyo</td>
               <td>156</td>
               <td><span class="estado activo">Activo</span></td>
-              <td><button><a href="historial.html">Ver y agregar nueva entrada</a></button></td>
+              <td><button><a href="historial_entrada.php">Ver y agregar nueva entrada</a></button></td>
             </tr>
             <tr>
               <td>02</td>
@@ -72,7 +72,7 @@
       </div>
       <div class="btnn">
       <button class="regresar">Regresar</button>      
-      <button class="regresar"><a class="a1" href="inventario.html">Eliminar un producto</a></button>
+      <button class="regresar" ><a class="a1" href="eliminar_producto.php">Eliminar un producto</a></button>
       </div>
     </main>
   </div>
