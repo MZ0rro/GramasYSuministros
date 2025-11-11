@@ -6,7 +6,7 @@ if (!isset($_SESSION["usuario_id"])) {
 }
 
 $nombre = $_SESSION["usuario_nombre"];
-$rol = $_SESSION["usuario_rol"];
+$rol = $_SESSION["usuario_rol"]; // 1 = admin
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,11 +15,28 @@ $rol = $_SESSION["usuario_rol"];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel — Gramas y Suministros</title>
   <link rel="stylesheet" href="estilos/dashboard.css">
-  <link
-      rel="icon"
-      type="image/png"
-      href="img/icono.ico"
-    />
+  <link rel="icon" type="image/png" href="img/icono.ico" />
+  
+  <!-- ESTILO PARA EL BOTÓN ADMIN -->
+  <style>
+    .btn-panel-admin {
+      background: #4caf50;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      display: inline-block;
+      margin: 15px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: 0.3s;
+    }
+    .btn-panel-admin:hover {
+      background: #388e3c;
+      transform: translateY(-2px);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -38,8 +55,14 @@ $rol = $_SESSION["usuario_rol"];
 
     <?php if ($rol == 1): ?>
       <p>Rol: Administrador</p>
+
+      <!-- BOTÓN PANEL ADMIN (NUEVO) -->
+    <a href="../panel_administrador/dashboard.php" class="btn-panel-admin">
+  Panel de Administración
+</a>
+
       <ul>
-        <a href="admin_inventario.php">Gestionar Inventario</a>
+        <li><a href="admin_inventario.php" style="color: #2e7d32; text-decoration: none;">Gestionar Inventario</a></li>
         <li>Gestionar usuarios</li>
         <li>Ver reportes</li>
       </ul>
