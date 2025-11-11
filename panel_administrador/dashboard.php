@@ -1,15 +1,11 @@
 <?php
 session_start();
-
-// Proteger acceso
-if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] != 1) {
     header("Location: ../frontend/inicio_sesion.php");
     exit();
 }
-
-$nombre = $_SESSION['usuario'];
+$nombre = $_SESSION['usuario_nombre'];
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,8 +15,6 @@ $nombre = $_SESSION['usuario'];
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo">
             <img src="../frontend/estilos/logo.png" alt="Logo">
@@ -35,18 +29,15 @@ $nombre = $_SESSION['usuario'];
         </div>
     </header>
 
-    <!-- SALUDO -->
     <div class="greeting">
         <h1>¡Hola (<?= htmlspecialchars($nombre) ?>)!</h1>
-        <a href="../frontend/logout.php" class="btn-volver">Volver</a>
+        <a href="../frontend/dashboard.php" class="btn-volver">Volver</a>
     </div>
 
-    <!-- PREGUNTA -->
     <div class="question">
         <h2>¿Qué desea hacer?</h2>
     </div>
 
-    <!-- OPCIONES -->
     <div class="options">
         <div class="card">
             <div class="icon-user"></div>
@@ -62,10 +53,8 @@ $nombre = $_SESSION['usuario'];
         </div>
     </div>
 
-    <!-- BOTÓN REPORTES -->
     <div class="reportes-container">
         <a href="reportes.php" class="btn-reportes">Ir a reportes</a>
     </div>
-
 </body>
 </html>
