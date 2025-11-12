@@ -32,7 +32,7 @@ export default function Index() {
           <a href="#">Inicio</a>
           <a href="#">Productos</a>
           <a href="#">Registrarse</a>
-          <a href="#">Iniciar sesión</a>
+          <a href="">Iniciar sesión</a>
         </nav>
       </header>
 
@@ -48,7 +48,7 @@ export default function Index() {
                 productos.map((prod) => (
                   <div className="card" key={prod.id}>
                     <img
-                      src={`http://localhost/gramasysuministros/backend/${prod.imagen}`}
+                      src={`http://localhost/gramasysuministros/frontend/assets/${prod.imagen}`}
                       alt={prod.nombre}
                     />
                     <div className="card-content">
