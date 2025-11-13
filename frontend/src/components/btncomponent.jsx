@@ -9,4 +9,8 @@ export default function NavComponent() {
       <Link to="/iniciosesion">Iniciar Sesion</Link>
     </nav>
   );
+
+  
+
+  
 }
