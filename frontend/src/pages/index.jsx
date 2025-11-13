@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../estilos/global.css"; // tu CSS global
 import logo from "../assets/logo.png";
-import NavComponent from "../components/btncomponent.jsx";
+import NavComponent from "../components/btncomponent";
 
 export default function Index() {
   const [productos, setProductos] = useState([]);
