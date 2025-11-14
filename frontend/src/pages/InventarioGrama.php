@@ -143,6 +143,6 @@ document.addEventListener("click", () => {
   document.querySelectorAll(".menu").forEach((m) => (m.style.display = "none"));
 });
 
-    </script>
+    </script>   
   </body>
 </html>
