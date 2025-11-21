@@ -23,17 +23,19 @@ export default function Login() {
 
     if (!res.ok) return;
 
-    // Guardar token
+    // GUARDAR TOKEN Y DATOS DEL USUARIO
     localStorage.setItem("token", data.token);
-
-    // Guardar rol
     localStorage.setItem("id_rol", data.user.id_rol);
 
-    // Redirección según rol
+    // 🔥 CLAVE para que funcione Dashboard
+    localStorage.setItem("usuario", JSON.stringify(data.user));
+
+    // REDIRECCIÓN SEGÚN ROL
+
     if (data.user.id_rol === 1) {
-      navigate("/dashboard");   // admin
+      navigate("/dashboard");   // Admin
     } else if (data.user.id_rol === 2) {
-      navigate("/catalogo");    // cliente
+      navigate("/");    // Cliente
     } else {
       navigate("/login");
     }
@@ -41,7 +43,7 @@ export default function Login() {
 
   return (
     <div className="auth-container">
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={() => navigate("/")}>
         Volver
       </button>
 
@@ -73,7 +75,7 @@ export default function Login() {
           />
         </div>
 
-        {/* Código admin (NO afecta el login por ahora) */}
+        {/* Código admin (decorativo por ahora) */}
         <label className="auth-label">Código de verificación de Administrador</label>
         <div className="input-wrapper">
           <input
@@ -86,9 +88,14 @@ export default function Login() {
         <GlobalButton onClick={handleLogin}>Continuar</GlobalButton>
 
         {/* BOTÓN REGISTRARSE */}
-        <GlobalButton className="register-button" onClick={() => navigate("/register")}> Registrarse </GlobalButton>
+        <GlobalButton
+          className="register-button"
+          onClick={() => navigate("/register")}
+        >
+          Registrarse
+        </GlobalButton>
+
         <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
-        
       </div>
     </div>
   );

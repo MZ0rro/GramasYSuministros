@@ -37,15 +37,15 @@ export default function Register() {
 
       const role = data.role;
 
-      if (role === 1) navigate("/dashboard");
-      else navigate("/catalogo");
+      if (role === 1) navigate("/");
+      else navigate("/dashboard");
     }
   };
 
   return (
     <div className="auth-container">
 
-      <button className="back-button" onClick={() => navigate("/login")}>
+      <button className="back-button" onClick={() => navigate("/")}>
         Volver
       </button>
 
