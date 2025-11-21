@@ -86,14 +86,9 @@ export default function Login() {
         <GlobalButton onClick={handleLogin}>Continuar</GlobalButton>
 
         {/* BOTÓN REGISTRARSE */}
-        <GlobalButton
-          className="register-button"
-          onClick={() => navigate("/register")}
-        >
-          Registrarse
-        </GlobalButton>
-
+        <GlobalButton className="register-button" onClick={() => navigate("/register")}> Registrarse </GlobalButton>
         <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
+        
       </div>
     </div>
   );

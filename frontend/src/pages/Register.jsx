@@ -37,8 +37,8 @@ export default function Register() {
 
       const role = data.role;
 
-      if (role === 1) navigate("/admin");
-      else navigate("/dashboard");
+      if (role === 1) navigate("/dashboard");
+      else navigate("/catalogo");
     }
   };
 
