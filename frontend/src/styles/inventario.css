@@ -7,16 +7,19 @@ body {
   background-color: #fff;
   margin: 0;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Contenedor */
 .container {
-  width: 100%; /* Ocupa el 100% del ancho del body */
-  max-width: none; /* Eliminar la restricción de ancho */
-  height: 100vh; /* Ocupa el 100% del alto de la ventana */
+  width: 95%;
+  max-width: 1000px;
+  height: 90vh;
   background-color: #fff;
-  border-radius: 0; /* Eliminar esquinas redondeadas si es a pantalla completa */
-  box-shadow: none; /* Eliminar la sombra para que se vea integrado al fondo */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -130,14 +133,8 @@ td {
 }
 
 @keyframes desaparecer {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
 }
 
 /* Botón regresar */
@@ -159,8 +156,7 @@ td {
 
 /* Responsivo */
 @media (max-width: 700px) {
-  th,
-  td {
+  th, td {
     font-size: 12px;
     padding: 8px;
   }
@@ -174,7 +170,7 @@ td {
   }
 }
 
-a {
-  color: white;
-  text-decoration: none;
+a{
+    color: white;
+    text-decoration: none;
 }
