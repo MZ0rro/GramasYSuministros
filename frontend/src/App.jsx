@@ -1,16 +1,22 @@
 import { Routes, Route } from "react-router-dom";
-import Index from "./pages/index";
-import Login from "./pages/inicio_sesion";
-import Stock from "./pages/Stock";
+import Login from "./pages/Login.jsx";
+import Contacto from "./pages/contacto.jsx";
+import Register from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Catalogo from "./pages/Catalogo.jsx"
+import Logout from "./pages/logout.jsx"
 
-function App() {
+export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/iniciosesion" element={<Login />} />
-      <Route path="/Stock" element={<Stock />} />
+      <Route path="/" element={<Catalogo />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/contacto" element={<Contacto />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/logout" element={<Logout />} />
     </Routes>
   );
 }
 
-export default App;
+
