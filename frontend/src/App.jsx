@@ -3,8 +3,12 @@ import Login from "./pages/Login.jsx";
 import Contacto from "./pages/contacto.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Catalogo from "./pages/Catalogo.jsx"
-import Logout from "./pages/logout.jsx"
+import Catalogo from "./pages/Catalogo.jsx";
+import Logout from "./pages/logout.jsx";
+import EliminarProducto from "./pages/EliminarProducto.jsx";
+import Historial from "./pages/Historial.jsx";
+import InsertarProducto from "./pages/InsertarProducto.jsx";
+import Inventario from "./pages/Inventario.jsx";
 
 export default function App() {
   return (
@@ -15,8 +19,10 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/EliminarProducto" element={<EliminarProducto />} />
+      <Route path="/Historial" element={<Historial />} />
+      <Route path="/InsertarProducto" element={<InsertarProducto />} />
+      <Route path="/Inventario" element={<Inventario />} />
     </Routes>
   );
 }
-
-
