@@ -1,4 +1,4 @@
-import "../styles/auth.css";
+import "../styles/GlobalButton.css";
 
 export default function GlobalButton({ children, onClick, className = "", ...props }) {
   return (

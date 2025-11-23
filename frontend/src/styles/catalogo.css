@@ -1,15 +1,28 @@
-.catalog-container {
+.app {
   width: 100%;
   text-align: center;
-  padding: 25px 0;
-  background-color: #edf6ef;
+  background-color: #f6fdf8;
+}
+
+main {
+  flex: 1;
+  background-color: #fff;
+  padding: 30px 50px;
+  width: 80%;
+  max-width: 1000px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .catalog-title {
-  font-size: 28px;
-  color: #1b7c2c;
-  margin-top: 10px;
+  font-size: 25px;
+  color: #72b86a;
   font-weight: bold;
+  margin: 0px;
 }
 
 /* Buscador */
@@ -57,39 +70,48 @@
 
 /* Cards */
 .product-grid {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+  width: 100%;
 }
 
 .product-card {
-  background: #d1e9d0;
-  padding: 18px;
-  width: 240px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.15);
-}
-
-.product-img {
-  width: 100%;
-  height: 150px;
+  border: 1px solid #ddd;
   border-radius: 12px;
-  object-fit: cover;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
-.product-card h3 {
-  margin: 10px 0;
-  font-weight: bold;
+.card-content {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background-color: #f4f4f4;
+}
+
+.product-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .info-btn {
   background: #7cd36d;
   border: none;
-  padding: 10px 15px;
+  padding: 10px;
   width: 80%;
-  margin-top: 10px;
   border-radius: 18px;
   font-weight: bold;
   cursor: pointer;
@@ -97,6 +119,25 @@
 
 .info-btn:hover {
   background: #6ac05a;
+}
+
+.price{
+  font-weight: 700;
+  color: #000;
+  margin-top: auto;
+  text-align: left;
+}
+
+.card-content p{
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.card-content h3{
+  color: #72b86a;
+  margin-bottom: 6px;
+  text-align: left;
+  font-weight: bold;
 }
 
 /* Redes */
@@ -118,7 +159,11 @@
   transform: scale(1.1);
 }
 
-.footer {
-  margin-top: 30px;
-  font-size: 14px;
+footer {
+  background-color: #72b86a;
+  color: #000;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.9rem;
+  margin-top: 40px;
 }

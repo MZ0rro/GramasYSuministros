@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
+import "../styles/LoginAndRegister.css";
 import GlobalButton from "../components/GlobalButton";
 
 export default function Login() {
@@ -23,17 +23,19 @@ export default function Login() {
 
     if (!res.ok) return;
 
-    // Guardar token
+    // GUARDAR TOKEN Y DATOS DEL USUARIO
     localStorage.setItem("token", data.token);
-
-    // Guardar rol
     localStorage.setItem("id_rol", data.user.id_rol);
 
-    // Redirección según rol
+    // 🔥 CLAVE para que funcione Dashboard
+    localStorage.setItem("usuario", JSON.stringify(data.user));
+
+    // REDIRECCIÓN SEGÚN ROL
+
     if (data.user.id_rol === 1) {
-      navigate("/dashboard");   // admin
+      navigate("/dashboard");   // Admin
     } else if (data.user.id_rol === 2) {
-      navigate("/catalogo");    // cliente
+      navigate("/");    // Cliente
     } else {
       navigate("/login");
     }
@@ -41,9 +43,8 @@ export default function Login() {
 
   return (
     <div className="auth-container">
-      <button className="back-button" onClick={() => navigate(-1)}>
-        Volver
-      </button>
+
+      <GlobalButton onClick={() => navigate("/")} style={{ width: "20%", position: "absolute", top: "30px", right: "40px" }}>Volver</GlobalButton>
 
       <div className="auth-card">
         <h1 className="auth-title">Iniciar sesión</h1>
@@ -73,7 +74,7 @@ export default function Login() {
           />
         </div>
 
-        {/* Código admin (NO afecta el login por ahora) */}
+        {/* Código admin (decorativo por ahora) */}
         <label className="auth-label">Código de verificación de Administrador</label>
         <div className="input-wrapper">
           <input
@@ -83,12 +84,11 @@ export default function Login() {
           />
         </div>
 
-        <GlobalButton onClick={handleLogin}>Continuar</GlobalButton>
+        <GlobalButton onClick={handleLogin} style={{ width: "40%" }}>Continuar</GlobalButton>
 
-        {/* BOTÓN REGISTRARSE */}
-        <GlobalButton className="register-button" onClick={() => navigate("/register")}> Registrarse </GlobalButton>
+        <GlobalButton onClick={() => navigate("/register")} style={{ width: "40%" }}>Registrarse</GlobalButton>
+
         <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
-        
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
+import "../styles/LoginAndRegister.css";
 import GlobalButton from "../components/GlobalButton";
 
 export default function Register() {
@@ -38,16 +38,14 @@ export default function Register() {
       const role = data.role;
 
       if (role === 1) navigate("/dashboard");
-      else navigate("/catalogo");
+      else navigate("/");
     }
   };
 
   return (
     <div className="auth-container">
 
-      <button className="back-button" onClick={() => navigate("/login")}>
-        Volver
-      </button>
+      <GlobalButton onClick={() => navigate("/login")} style={{ width: "20%", position: "absolute", top: "30px", right: "40px" }}>Volver</GlobalButton>
 
       <div className="auth-card">
 
@@ -77,9 +75,7 @@ export default function Register() {
           <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6}/>
           </div>
 
-          <GlobalButton type="submit">
-            Registrarse
-          </GlobalButton>
+        <GlobalButton type="submit" style={{ width: "40%" }}>Registrarse</GlobalButton>
 
         </form>
 
