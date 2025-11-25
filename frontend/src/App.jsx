@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
-import Contacto from "./pages/contacto.jsx";
+import Contacto from "./pages/Contacto.jsx";
 import Register from "./pages/Register.jsx";
+import Catalogo from "./pages/Catalogo.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
-import Catalogo from "./pages/Catalogo.jsx"
-import Logout from "./pages/logout.jsx"
+import Logout from "./pages/Logout.jsx"
+import Perfil from "./pages/Perfil.jsx"
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/perfil" element={<Perfil />} />
     </Routes>
   );
 }
