@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/InsertarProducto.css";
+import "../styles/Insertar.css";
 
 const InsertarProducto = () => {
   const navigate = useNavigate();
-  // Estado para manejar los datos del formulario
+
   const [formData, setFormData] = useState({
+    nombre: "",
     altura: "",
     peso: "",
     stock: 0,
@@ -17,43 +18,57 @@ const InsertarProducto = () => {
     precio: "",
     descuento: "",
     descripcion: "",
-    imagen: null, // Para manejar el archivo de imagen
+    campoAdicional: "",
+    imagen: null,
   });
+
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "file" ? files[0] : value,
-    }));
+
+    if (type === "file" && files[0]) {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: files[0],
+      }));
+
+      // Crear preview de la imagen
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(files[0]);
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para enviar el formulario (ej. llamada API)
     console.log("Datos a guardar:", formData);
     alert("Producto guardado (simulado)");
-    // Aquí podrías navegar a la página de inventario
-    // navigate('/inventario');
   };
 
   const handleGoBack = () => {
-    // Usamos navigate para simular el enlace a "InventarioGrama.php"
     navigate("/inventario");
   };
 
-  const handleImageUpload = () => {
-    // Simula el click en el input de tipo file oculto
+  const handleImageClick = () => {
     document.getElementById("inputImagen").click();
   };
 
   return (
-    // ⚠️ NOTA: Los enlaces a CSS y el favicon se gestionan en la estructura principal de la app React.
     <>
       <header>
         <div className="header-left">
-          {/* Asegúrate de que esta ruta de imagen sea accesible en tu proyecto React */}
-          <img src="c" alt="Logo" />
+          <img
+            src="/Img/Captura de pantalla 2025-11-01 190719.png"
+            alt="Logo"
+          />
         </div>
 
         <div className="header-center">
@@ -63,24 +78,41 @@ const InsertarProducto = () => {
         <div className="header-right">
           <img
             src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-            alt="Icono de Usuario"
+            alt="Usuario"
             className="icono-usuario"
           />
         </div>
       </header>
 
-      <h2>Insertar nuevo producto</h2>
-
       <div className="container">
-        {/* Envolviendo la cuadrícula en un formulario para manejar el submit */}
+        <h2>Insertar nuevo producto</h2>
         <form className="form-grid" onSubmit={handleSubmit}>
+          {/* COLUMNA IZQUIERDA */}
           <div className="left-column">
+            {/* Campo 01 */}
+            {/* Sección de imagen */}
             <div className="image-section">
-              {/* Aquí puedes mostrar la previsualización de la imagen cargada usando formData.imagen */}
-              <div className="image-box" id="preview">
-                {formData.imagen ? formData.imagen.name : "png/jpg/jpeg"}
+              <div
+                className="image-box"
+                id="preview"
+                onClick={handleImageClick}
+                style={{ cursor: "pointer" }}
+              >
+                {previewImage ? (
+                  <img
+                    src={previewImage}
+                    alt="Preview"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "15px",
+                    }}
+                  />
+                ) : (
+                  "png/jpg/jpeg"
+                )}
               </div>
-
               <input
                 type="file"
                 id="inputImagen"
@@ -89,158 +121,158 @@ const InsertarProducto = () => {
                 style={{ display: "none" }}
                 onChange={handleChange}
               />
-              {/* Usa el onClick para activar el input de archivo */}
-              <button
-                type="button"
-                className="btn-edit"
-                onClick={handleImageUpload}
-              >
-                Subir imagen
-              </button>
             </div>
 
+            {/* Campo adicional con lápiz */}
+            <div className="campo-adicional">
+              <input
+                type="text"
+                name="campoAdicional"
+                placeholder="..."
+                value={formData.campoAdicional}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Botones de acción */}
             <div className="actions">
-              {/* Usamos onClick y navigate en lugar de <a> */}
               <button className="btn" type="button" onClick={handleGoBack}>
                 Regresar
               </button>
-              {/* Este botón debe ser de tipo submit para activar la función handleSubmit */}
               <button className="btn" type="submit">
                 Guardar
               </button>
-              {/* Podrías usar el componente GlobalButton si lo necesitas: 
-              <GlobalButton text="Guardar" type="submit" className="btn" /> 
-              */}
             </div>
           </div>
 
+          {/* COLUMNA DERECHA */}
           <div className="right-column">
+            {/* Grid de campos */}
             <div className="fields">
               <div className="field">
-                <label htmlFor="altura">Altura</label>
+                <label>Altura</label>
                 <input
                   type="text"
-                  id="altura"
                   name="altura"
                   placeholder="..."
-                  required
                   value={formData.altura}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="peso">Peso</label>
+                <label>Peso</label>
                 <input
                   type="text"
-                  id="peso"
                   name="peso"
                   placeholder="..."
-                  required
                   value={formData.peso}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="stock">Stock</label>
+                <label>Stock</label>
                 <input
                   type="number"
-                  id="stock"
                   name="stock"
                   value={formData.stock}
-                  required
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="color">Color</label>
+                <label>Color</label>
                 <input
                   type="text"
-                  id="color"
                   name="color"
                   placeholder="..."
-                  required
                   value={formData.color}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="aplicacion">Aplicación</label>
+                <label>Aplicación</label>
                 <input
                   type="text"
-                  id="aplicacion"
                   name="aplicacion"
                   placeholder="..."
-                  required
                   value={formData.aplicacion}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="material">Material</label>
+                <label>Material</label>
                 <input
                   type="text"
-                  id="material"
                   name="material"
                   placeholder="..."
-                  required
                   value={formData.material}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="marca">Marca</label>
+                <label>Marca</label>
                 <input
                   type="text"
-                  id="marca"
                   name="marca"
                   placeholder="..."
-                  required
                   value={formData.marca}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="garantia">Garantía</label>
+                <label>Garantía</label>
                 <input
                   type="text"
-                  id="garantia"
                   name="garantia"
                   placeholder="..."
-                  required
                   value={formData.garantia}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="precio">Precio x m2</label>
+                <label>Precio x m2</label>
                 <input
                   type="text"
-                  id="precio"
                   name="precio"
                   placeholder="..."
-                  required
                   value={formData.precio}
                   onChange={handleChange}
+                  required
                 />
               </div>
+
               <div className="field">
-                <label htmlFor="descuento">Descuento</label>
+                <label>Descuento</label>
                 <input
                   type="text"
-                  id="descuento"
                   name="descuento"
                   placeholder="..."
-                  required
                   value={formData.descuento}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
+            {/* Descripción del producto */}
             <div className="description">
-              <label htmlFor="descripcion">Descripción del producto</label>
+              <label>Descripción del producto</label>
               <textarea
-                id="descripcion"
                 name="descripcion"
                 placeholder="..."
                 value={formData.descripcion}

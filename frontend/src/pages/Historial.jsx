@@ -11,7 +11,7 @@ export default function HistorialEntradas() {
   const cerrarModal = () => setModalOpen(false);
 
   return (
-    <div className="#">
+    <div className="header">
       <header>
         <div className="logo">
           <div className="logo-placeholder"></div>
