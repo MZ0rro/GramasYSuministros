@@ -45,7 +45,7 @@ export default function Register() {
   return (
     <div className="auth-container">
 
-      <GlobalButton onClick={() => navigate("/login")} style={{ width: "20%", position: "absolute", top: "30px", right: "40px" }}>Volver</GlobalButton>
+      <GlobalButton onClick={() => navigate(-1)} style={{ width: "20%", position: "absolute", top: "30px", right: "40px" }}>Volver</GlobalButton>
 
       <div className="auth-card">
 
