@@ -5,7 +5,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const productRoutes = require("./routes/productRoutes");
-const stockRoutes = require("./routes/Stock"); // 👈 NUEVA LÍNEA
+const stockRoutes = require("./routes/Stock");
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/productos", productRoutes);
-app.use("/api", stockRoutes); // 👈 NUEVA LÍNEA
+app.use("/api", stockRoutes);
 
 const PORT = process.env.PORT || 3001;
 
