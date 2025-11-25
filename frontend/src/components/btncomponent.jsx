@@ -51,7 +51,7 @@ export default function NavComponent() {
             <Link to="/dashboard">Mi Perfil</Link>
           )}
 
-          <Link to="/logout" onClick={() => {
+          <Link to="/" onClick={() => {
             localStorage.removeItem("token");
             localStorage.removeItem("usuario");
             localStorage.removeItem("id_rol");
