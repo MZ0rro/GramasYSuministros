@@ -17,7 +17,7 @@ const AdminDashboard = () => {
     <div className="admin-container">
       <header className="header">
         <div className="logo">
-          <img src="/frontend/estilos/logo.png" alt="Logo" />
+          <img src="/logo.png" alt="Logo" />
           <div>
             <span>Gramas y Suministros</span>
             <small>Synthetic Grass</small>

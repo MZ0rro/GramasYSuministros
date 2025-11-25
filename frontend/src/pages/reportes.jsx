@@ -14,7 +14,7 @@ const Reportes = () => {
     <>
       <header className="reportes-header">
         <div className="logo">
-          <imgоте src="/frontend/estilos/logo.png" alt="Logo" />
+          <img src="/logo.png" alt="Logo" />
           <div>
             <span>Gramas y Suministros</span>
             <small>Synthetic Grass</small>

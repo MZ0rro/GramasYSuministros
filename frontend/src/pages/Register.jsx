@@ -59,22 +59,22 @@ export default function Register() {
 
           <label className="auth-label">Nombre</label>
           <div className="input-wrapper">
-          <input className="input-field" type="text" name="nombre" onChange={handleChange}required/>
+            <input className="input-field" type="text" name="nombre" onChange={handleChange} required />
           </div>
 
           <label className="auth-label">Apellido</label>
           <div className="input-wrapper">
-          <input className="input-field" type="text" name="apellido" onChange={handleChange}required/>
+            <input className="input-field" type="text" name="apellido" onChange={handleChange} required />
           </div>
 
           <label className="auth-label">Correo electrónico</label>
           <div className="input-wrapper">
-          <input className="input-field" type="email" name="email" onChange={handleChange} required/>
+            <input className="input-field" type="email" name="email" onChange={handleChange} required />
           </div>
 
           <label className="auth-label">Contraseña</label>
           <div className="input-wrapper">
-          <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6}/>
+            <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6} />
           </div>
 
           <GlobalButton type="submit">
