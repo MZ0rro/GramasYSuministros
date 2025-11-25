@@ -228,6 +228,10 @@ input {
   background-color: #a9e3a9;
 }
 
+.descartar:hover {
+  background-color: #8fd68f;
+}
+
 .guardar {
   background-color: #6bb46b;
   color: white;

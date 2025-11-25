@@ -151,7 +151,14 @@ tbody td:first-child {
   cursor: pointer;
   padding: 5px 10px;
   position: relative;
+  transition: background-color 0.2s;
 }
+
+.btn-options:hover {
+  background-color: #a8d9a0;
+  border-radius: 50%;
+}
+
 
 /* Menú desplegable */
 .dropdown-menu {

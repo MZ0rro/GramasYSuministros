@@ -95,16 +95,16 @@ export default function HistorialEntradas() {
             <h2>Nueva entrada para “Grama Kukuyo”</h2>
 
             <form>
-              <div className="form-group">
+              <div className="form-group full">
                 <label htmlFor="fecha">Fecha de entrada</label>
                 <input
                   type="text"
                   id="fecha"
-                  placeholder="Ingrese la fecha de entrada del producto"
+                  placeholder="Ingrese la fecha de entrada"
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group full">
                 <label htmlFor="cantidad">Cantidad</label>
                 <input
                   type="text"
