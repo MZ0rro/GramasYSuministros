@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import NavComponent from "../components/btncomponent";
+import NavComponent from "../components/GlobalNav";
 import "../styles/catalogo.css" ;
+import GlobalButton from "../components/GlobalButton";
 
 export default function Index() {
   const [productos, setProductos] = useState([]);
@@ -33,39 +34,30 @@ export default function Index() {
 
   return (
     <div className="app">
-      <header>
-        <div className="logo">
-          <h1>Gramas y Suministros</h1>
-        </div>
-      <NavComponent/>
 
-      </header>
+      <NavComponent/>
 
       <main>
         {cargando ? (
-          <h2 style={{ color: "var(--verde)" }}>Cargando productos...</h2>
+          <h2 className="catalog-title">Cargando productos...</h2>
         ) : (
           <>
-            <h2 style={{ color: "var(--verde)" }}>Nuestros productos</h2>
+            <h2 className="catalog-title">Nuestros productos</h2>
 
-            {/* Buscador igual que catálogo */}
-            <div className="search-box" style={{ margin: "20px auto" }}>
-              <input
-                type="text"
-                placeholder="Buscar productos..."
-                onChange={(e) => setSearch(e.target.value)}
-              />
+          <div className="search-filter-container">
+            <div className="search-box">
+              <img src="http://localhost:3001/uploads/search.png" alt="buscar" />
+              <input type="text"placeholder="Buscar productos..." onChange={(e) => setSearch(e.target.value)}/>
             </div>
+            <button className="filter-btn">Filtrar por</button>
+          </div>
 
-            <div className="productos" style={{ marginTop: "40px" }}>
-              {productosFiltrados.length > 0 ? (
-                productosFiltrados.map((prod) => (
-                  <div className="card" key={prod.id_producto}>
-                    {/* ⭐ Igual que catálogo → cargado desde /uploads */}
-                    <img
-                      src={`http://localhost:3001/uploads/${prod.imagen}`}
-                      alt={prod.nombre}
-                    />
+            <div className="product-grid">
+              {productosFiltrados.length > 0 ? (productosFiltrados.map((prod) => (
+                  
+                  <div className="product-card" key={prod.id_producto}>
+
+                    <img src={`http://localhost:3001/uploads/${prod.imagen}`} alt={prod.nombre}/>
 
                     <div className="card-content">
                       <h3>{prod.nombre}</h3>

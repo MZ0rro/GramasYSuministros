@@ -33,7 +33,7 @@ export default function Login() {
     // REDIRECCIÓN SEGÚN ROL
 
     if (data.user.id_rol === 1) {
-      navigate("/dashboard");   // Admin
+      navigate("/perfil");   // Admin
     } else if (data.user.id_rol === 2) {
       navigate("/");    // Cliente
     } else {
