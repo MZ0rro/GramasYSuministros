@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const productRoutes = require("./routes/productRoutes");
 const stockRoutes = require("./routes/Stock");
+const inventarioRoutes = require("./routes/inventario");
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/productos", productRoutes);
 app.use("/api", stockRoutes);
+app.use("/api", inventarioRoutes);
+
 
 const PORT = process.env.PORT || 3001;
 

@@ -1,46 +1,48 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/InventarioGrama.css";
 
 const InventarioGrama = () => {
   const navigate = useNavigate();
 
-  const [productos] = useState([
-    {
-      id: "01",
-      nombre: "Grama para jardín",
-      altura: "40mm",
-      peso: "49kg",
-      stock: 156,
-      precio: "67,900",
-    },
-    {
-      id: "02",
-      nombre: "Grama deportiva",
-      altura: "10mm",
-      peso: "25kg",
-      stock: 14,
-      precio: "43,900",
-    },
-    {
-      id: "03",
-      nombre: "Grama para terraza",
-      altura: "35mm",
-      peso: "4kg",
-      stock: 133,
-      precio: "59,900",
-    },
-    {
-      id: "04",
-      nombre: "Grama de parque",
-      altura: "20mm",
-      peso: "29kg",
-      stock: 0,
-      precio: "35,900",
-    },
-  ]);
-
+  const [productos, setProductos] = useState([]);
+  const [msg, setMsg] = useState("");
+  const [cargando, setCargando] = useState(true);
   const [menuAbierto, setMenuAbierto] = useState(null);
+
+  // 🔥 Obtener datos de la base de datos al cargar el componente
+  useEffect(() => {
+    obtenerInventario();
+  }, []);
+
+  const obtenerInventario = async () => {
+    try {
+      const token = localStorage.getItem("token"); // 🔑 Obtener token
+
+      const res = await fetch("http://localhost:3001/api/inventario", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // 🔒 Enviar token
+        },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMsg(data.message || "Error al cargar el inventario");
+        setCargando(false);
+        return;
+      }
+
+      setProductos(data);
+      setCargando(false);
+    } catch (error) {
+      console.error("Error:", error);
+      setMsg("Error al conectar con el servidor");
+      setCargando(false);
+    }
+  };
 
   const toggleMenu = (event, menuId) => {
     event.stopPropagation();
@@ -76,12 +78,21 @@ const InventarioGrama = () => {
   };
 
   // Cerrar menús al hacer clic fuera
-  useState(() => {
+  useEffect(() => {
     document.addEventListener("click", cerrarMenus);
     return () => {
       document.removeEventListener("click", cerrarMenus);
     };
   }, []);
+
+  // 🔄 Mostrar mensaje de carga
+  if (cargando) {
+    return (
+      <div style={{ textAlign: "center", padding: "50px" }}>
+        <p>Cargando inventario...</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -103,6 +114,9 @@ const InventarioGrama = () => {
       </header>
 
       <main>
+        {/* Mostrar mensaje de error si existe */}
+        {msg && <p style={{ color: "red", textAlign: "center" }}>{msg}</p>}
+
         <div className="top-section">
           <button className="btn-regresar" onClick={handleRegresar}>
             Regresar
@@ -129,62 +143,70 @@ const InventarioGrama = () => {
             </tr>
           </thead>
           <tbody>
-            {productos.map((producto) => (
-              <tr key={producto.id}>
-                <td>{producto.id}</td>
-                <td>{producto.nombre}</td>
-                <td>{producto.altura}</td>
-                <td>{producto.peso}</td>
-                <td>{producto.stock}</td>
-                <td>{producto.precio}</td>
-                <td>
-                  <button
-                    className="btn-options"
-                    onClick={(e) => toggleMenu(e, `menu${producto.id}`)}
-                  >
-                    ...
-                  </button>
-                  <div
-                    className={`dropdown-menu ${
-                      menuAbierto === `menu${producto.id}` ? "show" : ""
-                    }`}
-                    id={`menu${producto.id}`}
-                  >
-                    <button
-                      onClick={() => {
-                        navigate("#");
-                      }}
-                    >
-                      Mas Info.
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        navigate("#");
-                      }}
-                    >
-                      Editar
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        navigate("/Stock");
-                      }}
-                    >
-                      Stock
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        navigate("/EliminarProducto");
-                      }}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
+            {productos.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: "center" }}>
+                  No hay productos en el inventario
                 </td>
               </tr>
-            ))}
+            ) : (
+              productos.map((producto) => (
+                <tr key={producto.id_producto}>
+                  <td>{producto.id_producto}</td>
+                  <td>{producto.nombre}</td>
+                  <td>{producto.altura || "N/A"}</td>
+                  <td>{producto.peso || "N/A"}</td>
+                  <td>{producto.stock}</td>
+                  <td>${producto.precio}</td>
+                  <td>
+                    <button
+                      className="btn-options"
+                      onClick={(e) => toggleMenu(e, `menu${producto.id_producto}`)}
+                    >
+                      ...
+                    </button>
+                    <div
+                      className={`dropdown-menu ${menuAbierto === `menu${producto.id_producto}` ? "show" : ""
+                        }`}
+                      id={`menu${producto.id_producto}`}
+                    >
+                      <button
+                        onClick={() => {
+                          masInfo(producto.id_producto);
+                        }}
+                      >
+                        Mas Info.
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          editarProducto(producto.id_producto);
+                        }}
+                      >
+                        Editar
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          navigate("/Stock");
+                        }}
+                      >
+                        Stock
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          eliminarProducto(producto.id_producto);
+                          navigate("/EliminarProducto")
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
 
