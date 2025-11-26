@@ -100,14 +100,37 @@ const InsertarProducto = () => {
           texto: "¡Producto creado exitosamente!"
         });
 
+        // Limpiar formulario
+        setFormData({
+          nombre: "",
+          altura: "",
+          peso: "",
+          stock: 0,
+          color: "",
+          aplicacion: "",
+          material: "",
+          marca: "",
+          garantia: "",
+          precio: "",
+          descuento: "",
+          descripcion: "",
+          campoAdicional: "",
+          imagen: null,
+        });
+        setPreviewImage(null);
+
         // Redirigir al inventario después de 2 segundos
         setTimeout(() => {
           navigate("/Inventario");
         }, 2000);
       } else {
+        // Mostrar el error específico del backend si existe
+        const errorMsg = result.error || "Error al crear el producto";
+        const errorDetails = result.details ? ` (${result.details})` : "";
+
         setMensaje({
           tipo: "error",
-          texto: result.error || "Error al crear el producto"
+          texto: errorMsg + errorDetails
         });
       }
     } catch (error) {

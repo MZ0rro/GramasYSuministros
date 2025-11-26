@@ -70,6 +70,13 @@ router.post('/', upload.single('imagen'), async (req, res) => {
       });
     }
 
+    // Validar que el precio sea un número válido
+    if (isNaN(parseFloat(precio))) {
+      return res.status(400).json({
+        error: "El precio debe ser un número válido"
+      });
+    }
+
     // Preparar ruta de imagen si existe
     const imagenPath = req.file ? `/uploads/${req.file.filename}` : null;
 
@@ -115,6 +122,13 @@ router.post('/', upload.single('imagen'), async (req, res) => {
 
   } catch (err) {
     console.error("❌ Error creando producto:", err);
+
+    if (err.code === 'ER_DUP_ENTRY') {
+      return res.status(400).json({
+        error: "Ya existe un producto con ese nombre o identificador único."
+      });
+    }
+
     res.status(500).json({
       error: "Error al crear el producto",
       details: err.message

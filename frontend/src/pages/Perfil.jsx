@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!usuario) {
-      navigate("/login"); 
+      navigate("/login");
     }
   }, [usuario, navigate]);
 
@@ -32,7 +32,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
 
-    <NavComponent/>
+      <NavComponent />
 
       <main>
         <h2>Bienvenido, {usuario.nombre}</h2>
@@ -71,7 +71,7 @@ export default function Dashboard() {
                 <h3>Control de usuarios</h3>
               </Link>
 
-              <Link to="/admin/inventarios" className="card link-card">
+              <Link to="/Inventario" className="card link-card">
                 <div className="icon-inventory"></div>
                 <h3>Administrar inventarios</h3>
               </Link>
@@ -88,7 +88,7 @@ export default function Dashboard() {
 
             </div>
 
-              
+
           </div>
         )}
       </main>
