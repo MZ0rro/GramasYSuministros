@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavComponent from "../components/GlobalNav";
 import GlobalButton from "../components/GlobalButton";
+import '../styles/Perfil.css';
 
 export default function Dashboard() {
   const navigate = useNavigate();

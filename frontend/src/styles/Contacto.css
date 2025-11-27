@@ -1,0 +1,95 @@
+/* Fondo general */
+.contacto-container {
+    width: 100%;
+    min-height: 100vh;
+    text-align: center;
+    background-color: #a7e3a3;
+    display: flex;
+    flex-direction: column;
+}
+
+.icon-button {
+    position: absolute;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+/* Textos principales */
+.saludo {
+    margin-top: 20px;
+    background: #81d178;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.subtitulo {
+    margin-top: 10px;
+    background: #6ecf71;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+/* Contenedor de opciones */
+.opciones-box {
+    margin-top: 25px;
+    width: 90%;
+    background: #e9f8e6;
+    padding: 25px 10px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Tarjetas */
+.opcion-card {
+    background: #81d178;
+    width: 140px;
+    height: 150px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* animación hover */
+.opcion-card:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.opcion-card p {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Botón volver */
+.volver-btn {
+    margin-top: 30px;
+    background: #6ecf71;
+    padding: 10px 24px;
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.volver-btn:hover {
+    background: #5ac963;
+    transform: scale(1.05);
+}

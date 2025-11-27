@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/LoginAndRegister.css";
 import GlobalButton from "../components/GlobalButton";
+import NavComponent from "../components/GlobalNav";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -42,54 +43,42 @@ export default function Login() {
   };
 
   return (
+    <>
+    <NavComponent/>
     <div className="auth-container">
 
-      <GlobalButton onClick={() => navigate(-1)} style={{ width: "20%", position: "absolute", top: "30px", right: "40px" }}>Volver</GlobalButton>
-
       <div className="auth-card">
+        
         <h1 className="auth-title">Iniciar sesión</h1>
-        <h2 className="auth-subtitle">Administrador</h2>
 
         {/* Correo */}
-        <label className="auth-label">
-          Dirección de correo <span>(Solo se permite correo electrónico)</span>
-        </label>
+        <label className="auth-label">Dirección de correo <span>(Solo se permite correo electrónico)</span></label>
         <div className="input-wrapper">
           <img src="/icons/mail.png" alt="correo" />
-          <input
-            type="email"
-            className="input-field"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <input type="email" className="input-field" onChange={(e) => setEmail(e.target.value)}/>
         </div>
 
         {/* Contraseña */}
         <label className="auth-label">Contraseña</label>
         <div className="input-wrapper">
           <img src="/icons/lock.png" alt="password" />
-          <input
-            type="password"
-            className="input-field"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        {/* Código admin (decorativo por ahora) */}
-        <label className="auth-label">Código de verificación de Administrador</label>
-        <div className="input-wrapper">
-          <input
-            type="text"
-            className="input-field"
-            onChange={(e) => setAdminCode(e.target.value)}
-          />
+          <input type="password" className="input-field" onChange={(e) => setPassword(e.target.value)}/>
         </div>
 
         <GlobalButton onClick={handleLogin} style={{ width: "40%" }}>Continuar</GlobalButton>
+
+        <p 
+  style={{ marginTop: "10px", cursor: "pointer", color: "blue" }}
+  onClick={() => navigate("/forgot-password")}
+>
+  ¿Olvidaste tu contraseña?
+</p>
 
         <GlobalButton onClick={() => navigate("/register")} style={{ width: "40%" }}>Registrarse</GlobalButton>
 
         <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
       </div>
     </div>
+    </>
   );
 }

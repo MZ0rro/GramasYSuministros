@@ -1,7 +1,11 @@
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const transporter = require('../config/email');
 
+// -----------------------------------------------
+// REGISTER
+// -----------------------------------------------
 exports.register = async (req, res) => {
   try {
     const { nombre, apellido, email, password, id_rol } = req.body;
@@ -32,7 +36,9 @@ exports.register = async (req, res) => {
 };
 
 
-
+// -----------------------------------------------
+// LOGIN
+// -----------------------------------------------
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -51,29 +57,130 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Contraseña incorrecta" });
     }
 
-    // Generar JWT
     const token = jwt.sign(
       { id_usuario: user[0].id_usuario, id_rol: user[0].id_rol },
       process.env.JWT_SECRET,
       { expiresIn: "6h" }
     );
 
-  res.json({
-  message: "Login exitoso",
-  token,
-  role: user[0].id_rol,
-  user: {
-    id_usuario: user[0].id_usuario,
-    nombre: user[0].nombre,
-    apellido: user[0].apellido,
-    email: user[0].email,
-    id_rol: user[0].id_rol
-    }
-  });
-
+    res.json({
+      message: "Login exitoso",
+      token,
+      role: user[0].id_rol,
+      user: {
+        id_usuario: user[0].id_usuario,
+        nombre: user[0].nombre,
+        apellido: user[0].apellido,
+        email: user[0].email,
+        id_rol: user[0].id_rol
+      }
+    });
 
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error en el servidor" });
+  }
+};
+
+
+// -----------------------------------------------
+// FORGOT PASSWORD (enviar código)
+// -----------------------------------------------
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const [user] = await pool.query(
+      "SELECT * FROM usuario WHERE email = ?",
+      [email]
+    );
+
+    if (user.length === 0) {
+      return res.status(400).json({ message: "El correo no está registrado" });
+    }
+
+    // Generar código de 6 dígitos
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Expira en 10 min
+    const expire = new Date(Date.now() + 10 * 60 * 1000);
+
+    await pool.query(
+      "UPDATE usuario SET reset_code = ?, reset_code_expire = ? WHERE email = ?",
+      [code, expire, email]
+    );
+
+    // Enviar correo
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Código de recuperación",
+      html: `<h2>Tu código es: <strong>${code}</strong></h2>
+             <p>Vence en 10 minutos.</p>`
+    });
+
+    res.json({ message: "Código enviado al correo" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error enviando el código" });
+  }
+};
+
+
+// -----------------------------------------------
+// VERIFY CODE
+// -----------------------------------------------
+exports.verifyCode = async (req, res) => {
+  try {
+    const { email, code } = req.body;
+
+    const [user] = await pool.query(
+      "SELECT reset_code, reset_code_expire FROM usuario WHERE email = ?",
+      [email]
+    );
+
+    if (user.length === 0) {
+      return res.status(400).json({ message: "El correo no existe" });
+    }
+
+    const data = user[0];
+
+    if (data.reset_code !== code) {
+      return res.status(400).json({ message: "Código incorrecto" });
+    }
+
+    if (new Date(data.reset_code_expire) < new Date()) {
+      return res.status(400).json({ message: "El código expiró" });
+    }
+
+    res.json({ message: "Código válido" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error verificando el código" });
+  }
+};
+
+
+// -----------------------------------------------
+// RESET PASSWORD
+// -----------------------------------------------
+exports.resetPassword = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    await pool.query(
+      "UPDATE usuario SET password_hash = ?, reset_code = NULL, reset_code_expire = NULL WHERE email = ?",
+      [hashed, email]
+    );
+
+    res.json({ message: "Contraseña cambiada correctamente" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error actualizando contraseña" });
   }
 };

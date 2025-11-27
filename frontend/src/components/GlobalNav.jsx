@@ -35,13 +35,13 @@ export default function NavComponent() {
 
   return (
 
-
     <header>
         <div className="logo"> 
           <h1>Gramas y Suministros</h1>
         </div>
         
         <nav style={{ display: "flex", gap: "1rem" }}>
+          <Link to="/" className="option">Catálogo</Link>
           <Link to="/contacto" className="option">Contacto</Link>
 
         {!isLogged ? 
@@ -56,7 +56,8 @@ export default function NavComponent() {
             <>
                 {isAdmin ? 
                 (
-                    <Link to="/perfil" className="option">Panel</Link>
+                    <><Link to="/perfil" className="option">Perfil</Link>
+                    <Link to="/dashboard" className="option">Inventario</Link></>
                 ) : 
                 
                 (

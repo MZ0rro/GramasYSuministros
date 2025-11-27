@@ -1,25 +1,15 @@
-/* ====== ESTILOS GLOBALES DE LOGIN & REGISTER ====== */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #e9f5e5;
-}
-
-/* Contenedor general */
 .auth-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
+  background-color: #d8f3d0;
   justify-content: center;
   align-items: center;
-  padding-top: 40px;
 }
-
 
 /* Tarjeta central */
 .auth-card {
-  background: #d8f3d0;
+  background: #fff;
   width: 60%;
   padding: 40px;
   border-radius: 18px;
@@ -68,8 +58,9 @@ body {
 .input-wrapper {
   display: flex;
   align-items: center;
-  background: #e6e6e6;
+  background: #e9f5e5;
   width: 70%;
+  border: 1px solid #000;
   margin: 5px auto 20px auto;
   padding: 10px 15px;
   border-radius: 22px;
