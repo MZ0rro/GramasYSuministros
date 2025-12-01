@@ -1,0 +1,384 @@
+/* ========================================
+   ESTILOS PARA COMPONENTES REUTILIZABLES
+   ======================================== */
+
+/* ==================== STATS CARD ==================== */
+/* Tarjeta de estadísticas usada en el Dashboard */
+
+.stats-card {
+    /* Fondo con transparencia y efecto glassmorphism */
+    background: rgba(255, 255, 255, 0.1);
+    /* Bordes redondeados para diseño moderno */
+    border-radius: 20px;
+    /* Espaciado interno */
+    padding: 25px;
+    /* Flexbox para alinear icono e información */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* Transición suave para animaciones */
+    transition: all 0.3s ease;
+    /* Efecto de desenfoque del fondo */
+    backdrop-filter: blur(10px);
+    /* Borde sutil */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Ancho mínimo para mantener consistencia */
+    min-width: 250px;
+}
+
+/* Efecto hover para interactividad */
+.stats-card:hover {
+    /* Eleva la tarjeta */
+    transform: translateY(-5px);
+    /* Sombra más pronunciada */
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    /* Fondo ligeramente más visible */
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Contenedor del icono de estadística */
+.stats-icon {
+    /* Tamaño del icono */
+    width: 60px;
+    height: 60px;
+    /* Icono circular */
+    border-radius: 50%;
+    /* Flexbox para centrar contenido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Evita que se encoja */
+    flex-shrink: 0;
+}
+
+/* Variantes de color para diferentes tipos de estadísticas */
+.stats-card-blue .stats-icon {
+    /* Gradiente azul para usuarios */
+    background: linear-gradient(135deg, #00d4ff, #0066ff);
+    /* Sombra con brillo azul */
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.stats-card-green .stats-icon {
+    /* Gradiente verde para productos/ventas */
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    /* Sombra con brillo verde */
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.stats-card-orange .stats-icon {
+    /* Gradiente naranja para alertas/stock */
+    background: linear-gradient(135deg, #ff9500, #ff6600);
+    /* Sombra con brillo naranja */
+    box-shadow: 0 0 20px rgba(255, 149, 0, 0.5);
+}
+
+.stats-card-purple .stats-icon {
+    /* Gradiente morado para reportes */
+    background: linear-gradient(135deg, #b366ff, #8000ff);
+    /* Sombra con brillo morado */
+    box-shadow: 0 0 20px rgba(179, 102, 255, 0.5);
+}
+
+/* Contenedor de texto de la estadística */
+.stats-info {
+    /* Ocupa el espacio restante */
+    flex: 1;
+}
+
+/* Título de la estadística */
+.stats-title {
+    /* Tamaño de fuente */
+    font-size: 0.9rem;
+    /* Color gris claro */
+    color: #a0e6ff;
+    /* Elimina margen por defecto */
+    margin: 0 0 8px 0;
+    /* Peso de fuente normal */
+    font-weight: 400;
+    /* Texto en mayúsculas */
+    text-transform: uppercase;
+    /* Espaciado entre letras */
+    letter-spacing: 1px;
+}
+
+/* Valor numérico de la estadística */
+.stats-value {
+    /* Tamaño grande para destacar */
+    font-size: 2rem;
+    /* Peso bold */
+    font-weight: 700;
+    /* Color blanco */
+    color: #fff;
+    /* Elimina margen */
+    margin: 0;
+}
+
+/* ==================== PRODUCT CARD ==================== */
+/* Tarjeta de producto para el catálogo */
+
+.product-card {
+    /* Fondo con glassmorphism */
+    background: rgba(255, 255, 255, 0.1);
+    /* Bordes redondeados */
+    border-radius: 16px;
+    /* Desbordamiento oculto para imágenes */
+    overflow: hidden;
+    /* Transición suave */
+    transition: all 0.3s ease;
+    /* Borde sutil */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Cursor pointer si es clickeable */
+    cursor: pointer;
+    /* Altura total para mantener consistencia */
+    height: 100%;
+    /* Flexbox en columna */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efecto hover en la tarjeta de producto */
+.product-card:hover {
+    /* Eleva la tarjeta */
+    transform: translateY(-10px);
+    /* Sombra más pronunciada */
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+    /* Borde más visible */
+    border-color: #00d4ff;
+}
+
+/* Contenedor de la imagen del producto */
+.product-image-container {
+    /* Posición relativa para badges absolutos */
+    position: relative;
+    /* Altura fija */
+    height: 200px;
+    /* Fondo gris oscuro */
+    background: rgba(0, 0, 0, 0.3);
+    /* Desbordamiento oculto */
+    overflow: hidden;
+}
+
+/* Imagen del producto */
+.product-image {
+    /* Ocupa todo el contenedor */
+    width: 100%;
+    height: 100%;
+    /* Mantiene proporción y cubre el área */
+    object-fit: cover;
+    /* Transición para zoom */
+    transition: transform 0.3s ease;
+}
+
+/* Zoom en hover */
+.product-card:hover .product-image {
+    /* Aumenta tamaño 10% */
+    transform: scale(1.1);
+}
+
+/* Badge de stock (pocas unidades / agotado) */
+.stock-badge {
+    /* Posición absoluta en esquina superior derecha */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    /* Espaciado interno */
+    padding: 6px 12px;
+    /* Bordes redondeados */
+    border-radius: 20px;
+    /* Texto pequeño */
+    font-size: 0.75rem;
+    /* Peso bold */
+    font-weight: 700;
+    /* Color blanco */
+    color: white;
+    /* Texto en mayúsculas */
+    text-transform: uppercase;
+}
+
+/* Badge de stock bajo (amarillo/naranja) */
+.stock-badge.low {
+    background: linear-gradient(135deg, #ff9500, #ff6600);
+}
+
+/* Badge de agotado (rojo) */
+.stock-badge.out {
+    background: linear-gradient(135deg, #ff3b30, #cc0000);
+}
+
+/* Contenedor de información del producto */
+.product-info {
+    /* Espaciado interno */
+    padding: 20px;
+    /* Flexbox en columna */
+    display: flex;
+    flex-direction: column;
+    /* Ocupa espacio restante */
+    flex: 1;
+}
+
+/* Marca del producto */
+.product-brand {
+    /* Tamaño pequeño */
+    font-size: 0.8rem;
+    /* Color gris claro */
+    color: #a0e6ff;
+    /* Margen inferior */
+    margin: 0 0 5px 0;
+    /* Texto en mayúsculas */
+    text-transform: uppercase;
+    /* Espaciado entre letras */
+    letter-spacing: 1px;
+}
+
+/* Nombre del producto */
+.product-name {
+    /* Tamaño de fuente */
+    font-size: 1.2rem;
+    /* Color blanco */
+    color: #fff;
+    /* Margen inferior */
+    margin: 0 0 10px 0;
+    /* Peso bold */
+    font-weight: 600;
+    /* Limita a 2 líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Descripción del producto */
+.product-description {
+    /* Tamaño pequeño */
+    font-size: 0.85rem;
+    /* Color gris */
+    color: #ccc;
+    /* Margen inferior */
+    margin: 0 0 15px 0;
+    /* Limita a 3 líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* Ocupa espacio disponible */
+    flex: 1;
+}
+
+/* Contenedor de precio y stock */
+.product-footer {
+    /* Flexbox para distribuir espacio */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Margen inferior */
+    margin-bottom: 15px;
+    /* Borde superior */
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Precio del producto */
+.product-price {
+    /* Tamaño grande */
+    font-size: 1.4rem;
+    /* Color verde (dinero) */
+    color: #00ff88;
+    /* Peso bold */
+    font-weight: 700;
+    /* Sin margen */
+    margin: 0;
+}
+
+/* Stock del producto */
+.product-stock {
+    /* Tamaño pequeño */
+    font-size: 0.85rem;
+    /* Color gris */
+    color: #a0e6ff;
+    /* Sin margen */
+    margin: 0;
+}
+
+/* Indicador de stock disponible */
+.in-stock {
+    /* Color verde */
+    color: #00ff88;
+    /* Peso bold */
+    font-weight: 600;
+}
+
+/* Indicador de sin stock */
+.out-stock {
+    /* Color rojo */
+    color: #ff3b30;
+    /* Peso bold */
+    font-weight: 600;
+}
+
+/* Botón de agregar al carrito */
+.btn-add-cart {
+    /* Ancho completo */
+    width: 100%;
+    /* Espaciado interno */
+    padding: 12px;
+    /* Gradiente de fondo */
+    background: linear-gradient(45deg, #00ff88, #00d4ff);
+    /* Color de texto oscuro */
+    color: #0f2027;
+    /* Sin borde */
+    border: none;
+    /* Bordes redondeados */
+    border-radius: 10px;
+    /* Peso bold */
+    font-weight: 700;
+    /* Tamaño de fuente */
+    font-size: 1rem;
+    /* Cursor pointer */
+    cursor: pointer;
+    /* Transición suave */
+    transition: all 0.3s ease;
+}
+
+/* Hover del botón */
+.btn-add-cart:hover {
+    /* Eleva el botón */
+    transform: translateY(-2px);
+    /* Sombra más pronunciada */
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+
+/* Botón deshabilitado */
+.btn-add-cart.disabled {
+    /* Fondo gris */
+    background: rgba(255, 255, 255, 0.2);
+    /* Color de texto gris */
+    color: #999;
+    /* Cursor no permitido */
+    cursor: not-allowed;
+}
+
+/* ==================== RESPONSIVE ==================== */
+/* Adaptación para pantallas pequeñas */
+
+@media (max-width: 768px) {
+
+    /* Stats card en móvil */
+    .stats-card {
+        /* Ancho completo */
+        width: 100%;
+        /* Sin ancho mínimo */
+        min-width: auto;
+    }
+
+    /* Product card en móvil */
+    .product-card {
+        /* Ancho completo */
+        width: 100%;
+    }
+
+    /* Imagen más pequeña en móvil */
+    .product-image-container {
+        height: 180px;
+    }
+}

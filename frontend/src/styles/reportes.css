@@ -1,115 +1,190 @@
-/* panel_administrador/reportes.css */
+/* ========================================
+   ESTILOS PARA PÁGINA DE REPORTES
+   ======================================== */
 
-/* ENCABEZADO */
+/* Contenedor principal */
+.reportes-container {
+    min-height: 100vh;
+    /* Fondo verde claro (igual al login) */
+    background-color: #e9f5e5;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+/* Header */
 .reportes-header {
-    background: #d0e8d0; 
-    padding: 15px 30px; 
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    /* Fondo verde principal */
+    background: #7cd36d;
+    padding: 20px 30px;
+    border-radius: 16px;
+    /* Sombra suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 2rem;
+    /* Texto blanco */
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content p {
+    margin: 5px 0 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Botón Volver */
+.btn-volver {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-volver:hover {
+    background: white;
+    color: #7cd36d;
+    transform: translateY(-2px);
+}
+
+/* Grid de Reportes */
+.reportes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+/* Tarjeta de Reporte */
+.report-card {
+    /* Fondo blanco */
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Borde verde suave */
+    border: 1px solid #d8f3d0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.report-card:hover {
+    transform: translateY(-10px);
+    background: #f1f8e9;
+    box-shadow: 0 15px 30px rgba(124, 211, 109, 0.2);
+    border-color: #7cd36d;
+}
+
+.report-card h3 {
+    color: #2e7d32;
+    margin: 10px 0;
+}
+
+.report-card p {
+    color: #666;
     font-size: 0.9rem;
 }
-.reportes-title { 
-    font-size: 1.1rem; 
-    font-weight: 600; 
-    color: #1b5e20; 
+
+/* Iconos de tarjetas */
+.card-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* SALUDO */
-.reportes-greeting {
-    text-align: center; 
-    margin: 30px 0;
-}
-.reportes-greeting h1 {
-    display: inline-block; 
-    background: #81c784; 
-    color: white; 
-    padding: 10px 30px;
-    border-radius: 30px; 
-    font-size: 1.3rem; 
-    font-weight: 600;
+/* Colores de tarjetas (adaptados al tema verde pero manteniendo distinción) */
+.card-blue .card-icon {
+    background: linear-gradient(135deg, #4fc3f7, #0288d1);
 }
 
-/* PREGUNTA */
-.reportes-question { 
-    text-align: center; 
-    margin: 40px 0 30px; 
-}
-.reportes-question h2 { 
-    color: #2e7d32; 
-    font-size: 1.8rem; 
-    font-weight: 600; 
+.card-green .card-icon {
+    background: linear-gradient(135deg, #81c784, #388e3c);
 }
 
-/* OPCIONES */
-.reportes-options {
-    display: flex; 
-    justify-content: center; 
-    gap: 50px; 
-    margin: 40px 0; 
-    flex-wrap: wrap;
-}
-.reportes-card {
-    background: #a5d6a7; 
-    padding: 30px; 
-    border-radius: 20px; 
-    width: 180px;
-    text-align: center; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.reportes-card h3 { 
-    color: #1b5e20; 
-    font-size: 1rem; 
-    margin-top: 15px; 
-    font-weight: 600; 
+.card-purple .card-icon {
+    background: linear-gradient(135deg, #ba68c8, #7b1fa2);
 }
 
-/* ICONOS */
-.icon-ventas, .icon-productos, .icon-usuarios, .icon-cotizaciones, .icon-pedidos {
-    width: 60px; 
-    height: 60px; 
-    background: #81c784; 
-    border-radius: 15px; 
-    margin: 0 auto;
+.card-orange .card-icon {
+    background: linear-gradient(135deg, #ffb74d, #f57c00);
 }
 
-/* VENTAS */
-.icon-ventas { 
-    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 21l8-8 4 4 8-8M3 21v-6m6 6v-6m6 6v-6m6 6v-6'/></svg>") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 21l8-8 4 4 8-8M3 21v-6m6 6v-6m6 6v-6m6 6v-6'/></svg>") no-repeat center;
-    mask-size: 70%; 
-    background-color: white;
+.card-red .card-icon {
+    background: linear-gradient(135deg, #e57373, #d32f2f);
 }
 
-/* PRODUCTOS MÁS VENDIDOS */
-.icon-productos { 
-    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 9l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 9l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>") no-repeat center;
-    mask-size: 70%; 
-    background-color: white;
+/* Iconos (Unicode placeholders) */
+.sales-icon::before {
+    content: '💰';
 }
 
-/* USUARIOS */
-.icon-usuarios { 
-    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='7' r='4'/><path d='M4 21v-1a7 7 0 0 1 14 0v1'/></svg>") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='7' r='4'/><path d='M4 21v-1a7 7 0 0 1 14 0v1'/></svg>") no-repeat center;
-    mask-size: 70%; 
-    background-color: white;
+.best-seller-icon::before {
+    content: '🏆';
 }
 
-/* COTIZACIONES */
-.icon-cotizaciones { 
-    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M7 8h6M7 12h10M7 16h8'/></svg>") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M7 8h6M7 12h10M7 16h8'/></svg>") no-repeat center;
-    mask-size: 70%; 
-    background-color: white;
+.users-icon::before {
+    content: '👥';
 }
 
-/* PEDIDOS */
-.icon-pedidos { 
-    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M3 10h18M8 10v10M16 10v10'/></svg>") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M3 10h18M8 10v10M16 10v10'/></svg>") no-repeat center;
-    mask-size: 70%; 
-    background-color: white;
+.quotes-icon::before {
+    content: '📝';
+}
+
+.orders-icon::before {
+    content: '📦';
+}
+
+/* Placeholder de Gráfico */
+.charts-section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #d8f3d0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.chart-placeholder h3 {
+    margin-top: 0;
+    color: #2e7d32;
+    border-bottom: 2px solid #7cd36d;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.fake-chart {
+    height: 300px;
+    background: linear-gradient(to top, rgba(124, 211, 109, 0.2) 0%, transparent 100%);
+    border-bottom: 2px solid #7cd36d;
+    position: relative;
+    margin-top: 20px;
+}
+
+.fake-chart::after {
+    content: 'Gráfico en desarrollo...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #2e7d32;
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0.7;
 }

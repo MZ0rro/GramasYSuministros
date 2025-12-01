@@ -1,0 +1,276 @@
+/* ========================================
+   ESTILOS PARA EL CATÁLOGO DE PRODUCTOS
+   ======================================== */
+
+/* Contenedor principal del catálogo */
+.catalogo-container {
+    min-height: 100vh;
+    /* Fondo verde claro (igual al login) */
+    background-color: #e9f5e5;
+    /* Texto oscuro para contraste */
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+/* ==================== HEADER ==================== */
+
+.catalogo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Fondo verde principal (igual al login) */
+    background: #7cd36d;
+    padding: 15px 30px;
+    border-radius: 16px;
+    /* Sombra suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+}
+
+.catalogo-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.catalogo-logo h1 {
+    font-size: 1.4rem;
+    margin: 0;
+    /* Texto blanco para resaltar sobre el verde */
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.catalogo-logo p {
+    font-size: 0.8rem;
+    /* Blanco con transparencia */
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-indicator {
+    font-size: 1.2rem;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    /* Icono blanco */
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff3b30;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de cerrar sesión en header */
+.btn-logout-header {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-logout-header:hover {
+    background: white;
+    color: #7cd36d;
+}
+
+/* ==================== FILTROS ==================== */
+
+.filtros-container {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.filtros-container h3 {
+    /* Color verde oscuro */
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.filtros-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filtro-btn {
+    /* Fondo verde muy claro */
+    background: #d8f3d0;
+    /* Borde verde */
+    border: 1px solid #7cd36d;
+    /* Texto oscuro */
+    color: #333;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.filtro-btn:hover {
+    background: #c5e8b7;
+    transform: translateY(-2px);
+}
+
+.filtro-btn.active {
+    /* Fondo verde principal */
+    background: #7cd36d;
+    color: white;
+    border-color: #7cd36d;
+    box-shadow: 0 4px 10px rgba(124, 211, 109, 0.4);
+}
+
+/* ==================== PRODUCTOS ==================== */
+
+.productos-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    /* Borde verde */
+    border-bottom: 2px solid #7cd36d;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.product-count {
+    font-size: 1.2rem;
+    color: #666;
+    margin-left: 10px;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    background: #d8f3d0;
+    border-radius: 10px;
+    color: #555;
+    font-size: 1.2rem;
+    border: 1px dashed #7cd36d;
+}
+
+.loading-container,
+.error-container {
+    text-align: center;
+    padding: 50px;
+    color: #333;
+}
+
+/* ==================== OVERRIDES PARA PRODUCT CARD ==================== */
+/* Sobrescribimos los estilos oscuros de components.css para este contexto claro */
+
+.catalogo-container .product-card {
+    background: white;
+    border: 1px solid #d8f3d0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.catalogo-container .product-card:hover {
+    border-color: #7cd36d;
+    box-shadow: 0 10px 25px rgba(124, 211, 109, 0.3);
+}
+
+.catalogo-container .product-image-container {
+    background: #f0f0f0;
+}
+
+.catalogo-container .product-brand {
+    color: #7cd36d;
+    font-weight: bold;
+}
+
+.catalogo-container .product-name {
+    color: #333;
+}
+
+.catalogo-container .product-description {
+    color: #666;
+}
+
+.catalogo-container .product-footer {
+    border-top: 1px solid #eee;
+}
+
+.catalogo-container .product-price {
+    color: #2e7d32;
+    /* Verde más oscuro para precio */
+}
+
+.catalogo-container .product-stock {
+    color: #888;
+}
+
+.catalogo-container .btn-add-cart {
+    background: #7cd36d;
+    color: white;
+}
+
+.catalogo-container .btn-add-cart:hover {
+    background: #6ac05a;
+    box-shadow: 0 5px 15px rgba(124, 211, 109, 0.4);
+}
+
+/* ==================== FOOTER ==================== */
+
+.catalogo-footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    .catalogo-header {
+        flex-direction: column;
+        gap: 15px;
+        position: relative;
+        top: 0;
+    }
+
+    .filtros-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr;
+    }
+}
