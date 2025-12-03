@@ -119,9 +119,15 @@ td {
   font-size: 16px;
 }
 
-.eliminar:hover {
+.eliminar:hover:not(:disabled) {
   background-color: #d05353;
   transform: scale(1.05);
+}
+
+.eliminar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* Animación al borrar */
