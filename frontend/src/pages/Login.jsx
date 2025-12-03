@@ -26,14 +26,15 @@ export default function Login() {
     // Guardar token
     localStorage.setItem("token", data.token);
 
-    // Guardar rol
+    // Guardar rol y nombre
     localStorage.setItem("id_rol", data.user.id_rol);
+    localStorage.setItem("nombre", data.user.nombre);
 
     // Redirección según rol
     if (data.user.id_rol === 1) {
       navigate("/dashboard");   // admin
     } else if (data.user.id_rol === 2) {
-      navigate("/catalogo");    // cliente
+      navigate("/");            // cliente (ahora va al Home)
     } else {
       navigate("/login");
     }

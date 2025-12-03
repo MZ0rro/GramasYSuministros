@@ -1,0 +1,187 @@
+/* quienes-somos.css */
+
+.quienes-somos-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e9f5e5 0%, #ffffff 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.qs-header {
+    background: #7cd36d;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qs-header h1 {
+    color: white;
+    margin: 0;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-back {
+    position: absolute;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: white;
+    color: #7cd36d;
+}
+
+.qs-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Estilo de Contorno para el Texto (Outlined Text) */
+.outlined-text {
+    color: #2e7d32;
+    /* Color de relleno */
+    /* Sombra para simular contorno fuerte */
+    text-shadow:
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff,
+        2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.outlined-text-p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #7cd36d;
+    /* Contorno del bloque */
+    box-shadow: 5px 5px 0px rgba(124, 211, 109, 0.3);
+    /* Efecto pop */
+}
+
+/* Sección Hero */
+.qs-hero {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 60px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.qs-hero-text {
+    flex: 1;
+}
+
+.qs-hero-image {
+    flex: 1;
+    height: 300px;
+    background: #f0f0f0;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.placeholder-img-large {
+    font-size: 5rem;
+}
+
+/* Misión y Visión */
+.qs-mission-vision {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.mv-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 3px solid #7cd36d;
+    transition: transform 0.3s;
+}
+
+.mv-card:hover {
+    transform: translateY(-10px);
+}
+
+.mv-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Valores */
+.qs-values {
+    text-align: center;
+}
+
+.section-center {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.values-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.value-item {
+    background: #2e7d32;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 250px;
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+}
+
+.value-item h3 {
+    margin-top: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+/* Footer */
+.qs-footer {
+    text-align: center;
+    padding: 20px;
+    background: #2e7d32;
+    color: white;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .qs-hero {
+        flex-direction: column;
+    }
+
+    .qs-mission-vision {
+        grid-template-columns: 1fr;
+    }
+}
