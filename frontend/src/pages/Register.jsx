@@ -15,13 +15,14 @@ export default function Register() {
   });
 
   const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState(""); // 'error' o 'success'
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // evita recargar la página
+    e.preventDefault();
 
     const res = await fetch("http://localhost:3001/api/auth/register", {
       method: "POST",
@@ -33,57 +34,106 @@ export default function Register() {
     setMsg(data.message);
 
     if (res.ok) {
-      localStorage.setItem("token", data.token);
-
-      const role = data.role;
-
-      if (role === 1) navigate("/admin");
-      else navigate("/dashboard");
+      setMsgType("success");
+      // Redirigir al login después de registro exitoso
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } else {
+      setMsgType("error");
     }
   };
 
   return (
     <div className="auth-container">
 
-      <button className="back-button" onClick={() => navigate("/login")}>
-        Volver
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ← Volver
       </button>
 
       <div className="auth-card">
 
-        <h1 className="auth-title">Crear cuenta</h1>
-        <h2 className="auth-subtitle">Registro de usuario</h2>
+        <h1 className="auth-title">Crear Cuenta</h1>
+        <h2 className="auth-subtitle">Registro de Usuario</h2>
 
-        {/* ⬇️ FORMULARIO REAL CON VALIDACIÓN */}
         <form onSubmit={handleSubmit}>
 
-          <label className="auth-label">Nombre</label>
+          <label className="auth-label">👤 Nombre</label>
           <div className="input-wrapper">
-            <input className="input-field" type="text" name="nombre" onChange={handleChange} required />
+            <input
+              className="input-field"
+              type="text"
+              name="nombre"
+              placeholder="Ingresa tu nombre"
+              onChange={handleChange}
+              required
+            />
           </div>
 
-          <label className="auth-label">Apellido</label>
+          <label className="auth-label">👥 Apellido</label>
           <div className="input-wrapper">
-            <input className="input-field" type="text" name="apellido" onChange={handleChange} required />
+            <input
+              className="input-field"
+              type="text"
+              name="apellido"
+              placeholder="Ingresa tu apellido"
+              onChange={handleChange}
+              required
+            />
           </div>
 
-          <label className="auth-label">Correo electrónico</label>
+          <label className="auth-label">📧 Correo Electrónico</label>
           <div className="input-wrapper">
-            <input className="input-field" type="email" name="email" onChange={handleChange} required />
+            <input
+              className="input-field"
+              type="email"
+              name="email"
+              placeholder="ejemplo@correo.com"
+              onChange={handleChange}
+              required
+            />
           </div>
 
-          <label className="auth-label">Contraseña</label>
+          <label className="auth-label">🔒 Contraseña <span>(mínimo 6 caracteres)</span></label>
           <div className="input-wrapper">
-            <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6} />
+            <input
+              className="input-field"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              onChange={handleChange}
+              required
+              minLength={6}
+            />
           </div>
 
           <GlobalButton type="submit">
-            Registrarse
+            ✨ Registrarse
           </GlobalButton>
 
         </form>
 
-        <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
+        {msg && (
+          <div className={`auth-message ${msgType}`}>
+            {msgType === 'success' ? '✅ ' : '❌ '}
+            {msg}
+          </div>
+        )}
+
+        <p style={{ marginTop: "25px", color: "#558b2f", fontSize: "0.95rem", fontWeight: "600" }}>
+          ¿Ya tienes cuenta?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            style={{
+              color: "#2e7d32",
+              cursor: "pointer",
+              textDecoration: "underline",
+              fontWeight: "800"
+            }}
+          >
+            Inicia sesión aquí
+          </span>
+        </p>
 
       </div>
     </div>
