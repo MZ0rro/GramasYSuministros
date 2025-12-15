@@ -72,7 +72,7 @@ export default function Dashboard() {
                 <h3>Control de usuarios</h3>
               </Link>
 
-              <Link to="/admin/inventarios" className="card link-card">
+              <Link to="/dashboard" className="card link-card">
                 <div className="icon-inventory"></div>
                 <h3>Administrar inventarios</h3>
               </Link>

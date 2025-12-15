@@ -56,8 +56,7 @@ export default function NavComponent() {
             <>
                 {isAdmin ? 
                 (
-                    <><Link to="/perfil" className="option">Perfil</Link>
-                    <Link to="/dashboard" className="option">Inventario</Link></>
+                    <Link to="/perfil" className="option">Panel</Link>
                 ) : 
                 
                 (

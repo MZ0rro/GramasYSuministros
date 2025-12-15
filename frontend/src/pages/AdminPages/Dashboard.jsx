@@ -71,7 +71,7 @@ const InventarioGrama = () => {
   };
 
   const handleRegresar = () => {
-    navigate("/admin-inventarios");
+    navigate(-1);
   };
 
   const handleAgregar = () => {
