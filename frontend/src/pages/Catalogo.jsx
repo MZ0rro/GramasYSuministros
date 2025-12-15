@@ -7,6 +7,16 @@ export default function Index() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [search, setSearch] = useState("");
+  const [categoriaActiva, setCategoriaActiva] = useState("TODAS");
+
+  const categorias = [
+    "TODAS",
+    "GRAMA SINTÉTICA",
+    "GRAMA NATURAL",
+    "ABONOS",
+    "HERRAMIENTAS",
+    "ACCESORIOS"
+  ];
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -32,9 +42,29 @@ export default function Index() {
     fetchProductos();
   }, []);
 
-  const productosFiltrados = productos.filter((p) =>
-    p.nombre.toLowerCase().includes(search.toLowerCase())
-  );
+const normalizar = (texto = "") =>
+  texto
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/_/g, " ")
+    .toUpperCase();
+
+const productosFiltrados = productos.filter((p) => {
+  const coincideBusqueda = p.nombre
+    .toLowerCase()
+    .includes(search.toLowerCase());
+
+  const coincideCategoria =
+    categoriaActiva === "TODAS" ||
+    normalizar(p.categoria) === normalizar(categoriaActiva);
+
+  return coincideBusqueda && coincideCategoria;
+});
+
+
+
+
 
   return (
     <div className="app">
@@ -45,7 +75,21 @@ export default function Index() {
           <h2 className="catalog-title">Cargando productos...</h2>
         ) : (
           <>
-            <h2 className="catalog-title">Nuestros productos</h2>
+            <h2 className="catalog-title"> {categoriaActiva === "TODAS" ? "Todos los Productos" : categoriaActiva}{" "} <span>({productosFiltrados.length})</span> </h2>
+
+            <div className="category-tabs">
+              {categorias.map((cat) => (
+                <button
+                  key={cat}
+                  className={`category-btn ${
+                    categoriaActiva === cat ? "active" : ""
+                  }`}
+                  onClick={() => setCategoriaActiva(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
 
             <div className="search-filter-container">
               <div className="search-box">
@@ -79,7 +123,7 @@ export default function Index() {
                       <GlobalButton
                         style={{ width: "70%", margin: "0px 0px 20px 0px" }}
                       >
-                        Continuar
+                        Agregar al Carrito
                       </GlobalButton>
                     </center>
                   </div>

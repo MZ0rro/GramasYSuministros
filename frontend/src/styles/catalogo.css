@@ -25,6 +25,29 @@ main {
   margin: 0px;
 }
 
+
+.category-tabs {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.category-btn.active {
+  background: #4f8f63;
+  color: white;
+  border-color: #4f8f63;
+}
+
 /* Buscador */
 .search-filter-container {
   display: flex;

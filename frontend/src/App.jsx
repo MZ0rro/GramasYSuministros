@@ -15,7 +15,9 @@ import ResetPassword from "./pages/reset-password.jsx";
 import Dashboard from "./pages/AdminPages/Dashboard.jsx";
 import Stock from "./pages/AdminPages/Stock.jsx"
 import InsertarProducto from "./pages/AdminPages/ProductInsert.jsx";
-import EntradasProductos from "./pages/AdminPages/HistoryInsert.jsx"
+import EntradasProductos from "./pages/AdminPages/HistoryInsert.jsx";
+import Usuarios from "./pages/AdminPages/PRUEBAusuarios.jsx";
+import Reportes from "./pages/AdminPages/PRUEBAreportes.jsx"
 
 export default function App() {
   return (
@@ -37,6 +39,8 @@ export default function App() {
       <Route path="/stock" element={<Stock />} />
       <Route path="/insertarProducto" element={<InsertarProducto />} />
       <Route path="/entradasProductos" element={<EntradasProductos />} />
+      <Route path="/usuarios" element={<Usuarios />} />
+      <Route path="/reportes" element={<Reportes />} />
     </Routes>
   );
 }

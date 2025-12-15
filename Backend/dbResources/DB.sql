@@ -40,6 +40,8 @@ CREATE TABLE usuario (
   id_rol INT UNSIGNED NOT NULL COMMENT 'FK -> rol(id_rol). Rol obligatorio: asegura que todo usuario tenga permisos definidos.',
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha de creacion del usuario.',
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha ultima modificacion.',
+  reset_code VARCHAR(10) NULL COMMENT 'El Código de verificación único que tiene disponible.',
+  reset_code_expire DATETIME NULL COMMENT 'El tiempo restante para usar el código de verificación';
   CONSTRAINT fk_usuario_rol FOREIGN KEY (id_rol) REFERENCES rol(id_rol) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
   COMMENT = 'Usuarios del sistema; id_rol obligatorio para claridad en permisos.';

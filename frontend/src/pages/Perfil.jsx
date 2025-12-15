@@ -67,7 +67,7 @@ export default function Dashboard() {
 
             <div className="options">
 
-              <Link to="/admin/usuarios" className="card link-card">
+              <Link to="/usuarios" className="card link-card">
                 <div className="icon-user"></div>
                 <h3>Control de usuarios</h3>
               </Link>
