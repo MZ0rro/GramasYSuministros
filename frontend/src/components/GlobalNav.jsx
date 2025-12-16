@@ -29,7 +29,7 @@ export default function NavComponent() {
     localStorage.removeItem("usuario");
     localStorage.removeItem("id_rol");
     setIsLogged(false);
-    setIsAdmin(false); 
+    setIsAdmin(false);
     navigate("/");
   };
 
@@ -37,43 +37,42 @@ export default function NavComponent() {
 
 
     <header>
-        <div className="logo"> 
-          <h1>Gramas y Suministros</h1>
-        </div>
-        
-        <nav style={{ display: "flex", gap: "1rem" }}>
-          <Link to="/contacto" className="option">Contacto</Link>
+      <div className="logo">
+        <h1>Gramas y Suministros</h1>
+      </div>
 
-        {!isLogged ? 
-        (
+      <nav style={{ display: "flex", gap: "1rem" }}>
+        <Link to="/contacto" className="option">Contacto</Link>
+
+        {!isLogged ?
+          (
             <>
-                <Link to="/register" className="option">Registrarse</Link>
-                <Link to="/login" className="option">Iniciar Sesión</Link>
+              <Link to="/register" className="option">Registrarse</Link>
+              <Link to="/login" className="option">Iniciar Sesión</Link>
             </>
-        ) : 
+          ) :
 
-        (
+          (
             <>
-                {isAdmin ? 
+              {isAdmin ?
                 (
-                    <Link to="/perfil" className="option">Panel</Link>
-                ) : 
-                
+                  <Link to="/perfil" className="option">Panel</Link>
+                ) :
+
                 (
-                    <Link to="/perfil" className="option">Mi Perfil</Link>
+                  <Link to="/perfil" className="option">Mi Perfil</Link>
                 )}
 
-            <Link to="/logout" className="option" onClick={() => 
-            {
+              <Link to="/login" className="option" onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("usuario");
                 localStorage.removeItem("id_rol");
-            }}>
+              }}>
                 Cerrar Sesion
-            </Link>
+              </Link>
             </>
-        )}
-        </nav>
+          )}
+      </nav>
     </header>
   );
 }

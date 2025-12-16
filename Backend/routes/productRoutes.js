@@ -152,10 +152,28 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ error: "Producto no encontrado" });
     }
 
-    // Primero eliminar de la tabla stock (por foreign key)
+    // 1. Obtener los IDs de movimientos asociados al producto
+    const [movimientos] = await pool.query(
+      'SELECT id_movimiento FROM movimiento WHERE id_producto = ?',
+      [id]
+    );
+
+    const movimientoIds = movimientos.map(m => m.id_movimiento);
+
+    if (movimientoIds.length > 0) {
+      // 2. Eliminar entradas y salidas asociadas a esos movimientos
+      // Usamos IN (?) para pasar el array de IDs
+      await pool.query('DELETE FROM entrada WHERE id_movimiento IN (?)', [movimientoIds]);
+      await pool.query('DELETE FROM salida WHERE id_movimiento IN (?)', [movimientoIds]);
+
+      // 3. Eliminar los movimientos
+      await pool.query('DELETE FROM movimiento WHERE id_producto = ?', [id]);
+    }
+
+    // 4. Eliminar de la tabla stock (por foreign key)
     await pool.query('DELETE FROM stock WHERE id_producto = ?', [id]);
 
-    // Luego eliminar el producto
+    // 5. Finalmente eliminar el producto
     await pool.query('DELETE FROM producto WHERE id_producto = ?', [id]);
 
     console.log(`✅ Producto ${id} eliminado exitosamente`);

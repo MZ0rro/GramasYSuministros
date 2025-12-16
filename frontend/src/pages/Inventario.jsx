@@ -118,7 +118,10 @@ const InventarioGrama = () => {
         {msg && <p style={{ color: "red", textAlign: "center" }}>{msg}</p>}
 
         <div className="top-section">
-          <button className="btn-regresar" onClick={handleRegresar}>
+          <button
+            className="btn-regresar"
+            onClick={() => navigate("/Perfil")}
+          >
             Regresar
           </button>
           <h2>Inventario de Grama Sintética</h2>
@@ -211,7 +214,10 @@ const InventarioGrama = () => {
         </table>
 
         <div className="bottom-button">
-          <button className="btn-regresar-bottom" onClick={handleRegresar}>
+          <button
+            className="btn-regresar-bottom"
+            onClick={() => navigate("/Perfil")}
+          >
             Regresar
           </button>
         </div>
