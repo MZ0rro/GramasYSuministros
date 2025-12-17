@@ -21,33 +21,33 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const res = await fetch("http://localhost:3001/api/auth/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
-  });
+    const res = await fetch("http://localhost:3001/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
 
-  const data = await res.json();
-  setMsg(data.message);
+    const data = await res.json();
+    setMsg(data.message);
 
-if (res.ok) {
-  setMsg("Registro exitoso. Ahora inicia sesión.");
+    if (res.ok) {
+      setMsg("Registro exitoso. Ahora inicia sesión.");
 
-  setTimeout(() => {
-    navigate("/login");
-  }, 1500);
-}
-};
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    }
+  };
 
 
   return (
     <>
-    <NavComponent/>
+      <NavComponent />
 
-        {/* FORMULARIO CON VALIDACIÓN */}
+      {/* FORMULARIO CON VALIDACIÓN */}
       <form onSubmit={handleSubmit} className="auth-container">
 
         <div className="auth-card">
@@ -57,35 +57,35 @@ if (res.ok) {
 
           <label className="auth-label">Nombre</label>
           <div className="input-wrapper">
-            <img src="/icons/mail.png" alt="correo" />
-            <input className="input-field" type="text" name="nombre" onChange={handleChange} required/>
+            <img src="Backend/uploads/icons/user.webp" alt="usuario" />
+            <input className="input-field" type="text" name="nombre" onChange={handleChange} required />
           </div>
 
           <label className="auth-label">Apellido</label>
           <div className="input-wrapper">
-            <img src="/icons/mail.png" alt="correo" />
-            <input className="input-field" type="text" name="apellido" onChange={handleChange} required/>
+            <img src="Backend/uploads/icons/apellido.png" alt="ape" />
+            <input className="input-field" type="text" name="apellido" onChange={handleChange} required />
           </div>
 
           <label className="auth-label">Correo electrónico</label>
           <div className="input-wrapper">
-            <img src="/icons/mail.png" alt="correo" />
-            <input className="input-field" type="email" name="email" onChange={handleChange} required/>
+            <img src="Backend/uploads/icons/email.png" alt="correo" />
+            <input className="input-field" type="email" name="email" onChange={handleChange} required />
           </div>
 
           <label className="auth-label">Contraseña</label>
           <div className="input-wrapper">
-            <img src="/icons/mail.png" alt="correo" />
-            <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6}/>
+            <img src="Backend/uploads/icons/contraseña.png" alt="cont" />
+            <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6} />
           </div>
 
           <GlobalButton type="submit" style={{ width: "40%" }}>Registrarse</GlobalButton>
 
         </div>
-        
+
       </form>
 
-        <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
+      <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
 
     </>
   );

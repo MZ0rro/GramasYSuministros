@@ -44,41 +44,41 @@ export default function Login() {
 
   return (
     <>
-    <NavComponent/>
-    <div className="auth-container">
+      <NavComponent />
+      <div className="auth-container">
 
-      <div className="auth-card">
-        
-        <h1 className="auth-title">Iniciar sesión</h1>
+        <div className="auth-card">
 
-        {/* Correo */}
-        <label className="auth-label">Dirección de correo <span>(Solo se permite correo electrónico)</span></label>
-        <div className="input-wrapper">
-          <img src="/icons/mail.png" alt="correo" />
-          <input type="email" className="input-field" onChange={(e) => setEmail(e.target.value)}/>
+          <h1 className="auth-title">Iniciar sesión</h1>
+
+          {/* Correo */}
+          <label className="auth-label">Dirección de correo <span>(Solo se permite correo electrónico)</span></label>
+          <div className="input-wrapper">
+            <img src="Backend/uploads/icons/email.png" alt="correo" />
+            <input type="email" className="input-field" onChange={(e) => setEmail(e.target.value)} />
+          </div>
+
+          {/* Contraseña */}
+          <label className="auth-label">Contraseña</label>
+          <div className="input-wrapper">
+            <img src="Backend/uploads/icons/contraseña.png" alt="password" />
+            <input type="password" className="input-field" onChange={(e) => setPassword(e.target.value)} />
+          </div>
+
+          <GlobalButton onClick={handleLogin} style={{ width: "40%" }}>Continuar</GlobalButton>
+
+          <p
+            style={{ marginTop: "10px", cursor: "pointer", color: "blue" }}
+            onClick={() => navigate("/forgot-password")}
+          >
+            ¿Olvidaste tu contraseña?
+          </p>
+
+          <GlobalButton onClick={() => navigate("/register")} style={{ width: "40%" }}>Registrarse</GlobalButton>
+
+          <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
         </div>
-
-        {/* Contraseña */}
-        <label className="auth-label">Contraseña</label>
-        <div className="input-wrapper">
-          <img src="/icons/lock.png" alt="password" />
-          <input type="password" className="input-field" onChange={(e) => setPassword(e.target.value)}/>
-        </div>
-
-        <GlobalButton onClick={handleLogin} style={{ width: "40%" }}>Continuar</GlobalButton>
-
-        <p 
-  style={{ marginTop: "10px", cursor: "pointer", color: "blue" }}
-  onClick={() => navigate("/forgot-password")}
->
-  ¿Olvidaste tu contraseña?
-</p>
-
-        <GlobalButton onClick={() => navigate("/register")} style={{ width: "40%" }}>Registrarse</GlobalButton>
-
-        <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
       </div>
-    </div>
     </>
   );
 }
