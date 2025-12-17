@@ -15,7 +15,9 @@ import ResetPassword from "./pages/reset-password.jsx";
 import Dashboard from "./pages/AdminPages/Dashboard.jsx";
 import Stock from "./pages/AdminPages/Stock.jsx"
 import InsertarProducto from "./pages/AdminPages/ProductInsert.jsx";
+import EditarProducto from "./pages/AdminPages/EditProduct.jsx";
 import EntradasProductos from "./pages/AdminPages/HistoryInsert.jsx";
+import EliminarProducto from "./pages/AdminPages/Remove-Product.jsx";
 import Usuarios from "./pages/AdminPages/PRUEBAusuarios.jsx";
 import Reportes from "./pages/AdminPages/PRUEBAreportes.jsx"
 
@@ -38,6 +40,8 @@ export default function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/stock" element={<Stock />} />
       <Route path="/insertarProducto" element={<InsertarProducto />} />
+      <Route path="/editar-producto/:id" element={<EditarProducto />} />
+      <Route path="/eliminarProducto" element={<EliminarProducto />} />
       <Route path="/entradasProductos" element={<EntradasProductos />} />
       <Route path="/usuarios" element={<Usuarios />} />
       <Route path="/reportes" element={<Reportes />} />

@@ -120,9 +120,9 @@ const InsertarProducto = () => {
         });
         setPreviewImage(null);
 
-        // Redirigir al inventario después de 2 segundos
+        // Redirigir al dashboard después de 2 segundos
         setTimeout(() => {
-          navigate("/Inventario");
+          navigate("/dashboard");
         }, 2000);
       } else {
         // Mostrar el error específico del backend si existe
@@ -155,7 +155,7 @@ const InsertarProducto = () => {
 
   return (
     <>
-        <NavComponent />
+      <NavComponent />
 
       <div className="container">
         <h2>Insertar nuevo producto</h2>

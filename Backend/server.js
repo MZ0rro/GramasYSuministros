@@ -7,6 +7,8 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const productRoutes = require('./routes/productRoutes');
 const InventoryRoutes = require("./routes/InventoryRoutes");
 const stockRoutes = require("./routes/StockRoutes");
+const entryRoutes = require('./routes/entryRoutes');
+const proveedorRoutes = require('./routes/proveedorRoutes');
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/productos', productRoutes);
 app.use("/api", InventoryRoutes);
 app.use("/api", stockRoutes);
+app.use('/api/entries', entryRoutes);
+app.use('/api/proveedores', proveedorRoutes);
 
 const PORT = process.env.PORT || 3001;
 
