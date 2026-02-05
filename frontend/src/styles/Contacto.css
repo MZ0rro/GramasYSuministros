@@ -1,95 +1,95 @@
-/* Fondo general */
-.contacto-container {
+.contacto-page {
     width: 100%;
     min-height: 100vh;
-    text-align: center;
-    background-color: #a7e3a3;
     display: flex;
     flex-direction: column;
 }
 
-.icon-button {
-    position: absolute;
-    right: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 26px;
+.contacto-main {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-/* Textos principales */
+.welcome-section {
+    width: 100%;
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+}
+
 .saludo {
-    margin-top: 20px;
-    background: #81d178;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 600;
+    color: var(--primary-green-dark);
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    font-weight: 800;
 }
 
 .subtitulo {
-    margin-top: 10px;
-    background: #6ecf71;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 18px;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin: 0;
 }
 
-/* Contenedor de opciones */
-.opciones-box {
-    margin-top: 25px;
-    width: 90%;
-    background: #e9f8e6;
-    padding: 25px 10px;
-    border-radius: 18px;
-    display: flex;
-    justify-content: center;
+.opciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 25px;
+    width: 100%;
+    margin-top: 20px;
 }
 
-/* Tarjetas */
 .opcion-card {
-    background: #81d178;
-    width: 140px;
-    height: 150px;
-    border-radius: 18px;
+    padding: 40px 20px;
+    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* animación hover */
 .opcion-card:hover {
-    transform: translateY(-6px) scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-10px);
+    background: var(--white);
+    border-color: var(--primary-green);
+    box-shadow: var(--shadow-lg);
 }
 
-.icon {
-    font-size: 45px;
-    margin-bottom: 10px;
+.opcion-card .icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 .opcion-card p {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
+    text-align: center;
 }
 
-/* Botón volver */
-.volver-btn {
-    margin-top: 30px;
-    background: #6ecf71;
-    padding: 10px 24px;
-    border-radius: 18px;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background 0.25s ease, transform 0.2s ease;
+.action-footer {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.volver-btn:hover {
-    background: #5ac963;
-    transform: scale(1.05);
+@media (max-width: 600px) {
+    .saludo {
+        font-size: 1.8rem;
+    }
+
+    .opciones-grid {
+        grid-template-columns: 1fr;
+    }
 }

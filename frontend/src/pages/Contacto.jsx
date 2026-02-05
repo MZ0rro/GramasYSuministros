@@ -21,49 +21,49 @@ const Contacto = () => {
   const nombreUsuario = user?.nombre || "usuario";
 
   return (
-    <div className="contacto-container">
+    <div className="contacto-page">
+      <NavComponent />
 
-      <NavComponent/>
+      <main className="contacto-main">
+        <section className="welcome-section glass-effect">
+          <h2 className="saludo">¡Hola, {nombreUsuario}!</h2>
+          <p className="subtitulo">¿Qué desea hacer hoy?</p>
+        </section>
 
-      <h3 className="saludo">¡Hola, {nombreUsuario}!</h3>
-      <p className="subtitulo">¿Qué desea hacer?</p>
+        <div className="opciones-grid">
+          {/* SOLO SE MUESTRA SI HAY SESIÓN */}
+          {user && (
+            <div className="opcion-card glass-effect" onClick={() => navigate("/dashboard")}>
+              <div className="icon">👤</div>
+              <p>Ver/editar perfil</p>
+            </div>
+          )}
 
-      <center>
-        <div className="opciones-box">
+          {/* SI NO HAY SESIÓN → mostrar botón para iniciar sesión */}
+          {!user && (
+            <div className="opcion-card glass-effect" onClick={() => navigate("/login")}>
+              <div className="icon">🔑</div>
+              <p>Iniciar sesión</p>
+            </div>
+          )}
 
-        {/* SOLO SE MUESTRA SI HAY SESIÓN */}
-        {user && (
-          <div className="opcion-card" onClick={() => navigate("/dashboard")}>
-            <div className="icon">👤</div>
-            <p>Ver/editar perfil</p>
+          <div className="opcion-card glass-effect" onClick={() => navigate("/recuperar")}>
+            <div className="icon">🔒</div>
+            <p>Recuperar contraseña</p>
           </div>
-        )}
 
-        {/* SI NO HAY SESIÓN → mostrar botón para iniciar sesión */}
-        {!user && (
-          <div className="opcion-card" onClick={() => navigate("/login")}>
-            <div className="icon">🔑</div>
-            <p>Iniciar sesión</p>
+          <div className="opcion-card glass-effect" onClick={() => navigate("/soporte")}>
+            <div className="icon">💬</div>
+            <p>Soporte técnico</p>
           </div>
-        )}
-
-        <div 
-          className="opcion-card" onClick={() => navigate("/recuperar")}>
-          <div className="icon">🔒</div>
-          <p>Recuperar contraseña</p>
         </div>
 
-        <div 
-          className="opcion-card" onClick={() => navigate("/soporte")}>
-          <div className="icon">☁️</div>
-          <p>Soporte</p>
+        <div className="action-footer">
+          <GlobalButton onClick={() => navigate(-1)} style={{ width: "180px" }}>
+            Volver
+          </GlobalButton>
         </div>
-      </div>
-      </center>
-
-        <br /><br /><br />
-      <center><GlobalButton onClick={() => navigate(-1)} style={{ width: "20%" }}>Volver</GlobalButton></center>
-
+      </main>
     </div>
   );
 };

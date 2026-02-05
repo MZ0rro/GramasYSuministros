@@ -22,7 +22,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!usuario) {
-      navigate("/login"); 
+      navigate("/login");
     }
   }, [usuario, navigate]);
 
@@ -33,63 +33,58 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
 
-    <NavComponent/>
+      <NavComponent />
 
       <main>
-        <h2>Bienvenido, {usuario.nombre}</h2>
-        <p>Rol: {isAdmin ? "Administrador" : "Cliente"}</p>
+        <div className="profile-welcome glass-effect">
+          <h2>Bienvenido, {usuario.nombre}</h2>
+          <p>Cuenta de {isAdmin ? "Administrador" : "Cliente"}</p>
+        </div>
 
-        {/* =====================================================
-                    USUARIO NORMAL
-        ====================================================== */}
+        {/* USUARIO NORMAL */}
         {!isAdmin && (
-          <div className="usuario-normal-area">
-            <h3 className="subtitulo">Tus opciones</h3>
-
-            <div className="user-options">
-
-              <GlobalButton onClick={() => navigate("/")} style={{ width: "100%" }}>Mis pedidos</GlobalButton> <br /><br />
-
-              <GlobalButton onClick={() => navigate("/")} style={{ width: "100%" }}>Editar perfil</GlobalButton> <br /><br />
-
-              <GlobalButton onClick={() => navigate("/")} style={{ width: "100%" }}>Mis cotizaciones</GlobalButton> <br /><br />
+          <div className="options-grid">
+            <div className="link-card glass-effect" onClick={() => navigate("/")}>
+              <div className="icon-box">📦</div>
+              <h3>Mis pedidos</h3>
+            </div>
+            <div className="link-card glass-effect" onClick={() => navigate("/")}>
+              <div className="icon-box">👤</div>
+              <h3>Editar perfil</h3>
+            </div>
+            <div className="link-card glass-effect" onClick={() => navigate("/")}>
+              <div className="icon-box">📝</div>
+              <h3>Mis cotizaciones</h3>
             </div>
           </div>
         )}
 
-        {/* =====================================================
-                     ADMINISTRADOR
-        ====================================================== */}
+        {/* ADMINISTRADOR */}
         {isAdmin && (
           <div className="panel-admin">
             <h2 className="title-admin">Panel de administración</h2>
-            <p className="question">¿Qué desea hacer?</p>
+            <p>¿Qué desea gestionar hoy?</p>
 
-            <div className="options">
-
-              <Link to="/usuarios" className="card link-card">
-                <div className="icon-user"></div>
+            <div className="options-grid">
+              <Link to="/usuarios" className="link-card glass-effect">
+                <div className="icon-box">👥</div>
                 <h3>Control de usuarios</h3>
               </Link>
 
-              <Link to="/dashboard" className="card link-card">
-                <div className="icon-inventory"></div>
+              <Link to="/dashboard" className="link-card glass-effect">
+                <div className="icon-box">📊</div>
                 <h3>Administrar inventarios</h3>
               </Link>
 
-              {/* --------- COTIZACIONES --------- */}
-              <Link to="/admin/cotizaciones" className="card link-card">
-                <div className="icon-quote"></div>
+              <Link to="/admin/cotizaciones" className="link-card glass-effect">
+                <div className="icon-box">📄</div>
                 <h3>Generar cotizaciones</h3>
               </Link>
 
-              <Link to="/reportes" className="card link-card">
-                Ir a reportes
+              <Link to="/reportes" className="link-card glass-effect reportes-link">
+                Ir a reportes profesionales
               </Link>
-
             </div>
-
-              
           </div>
         )}
       </main>

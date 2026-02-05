@@ -42,25 +42,25 @@ export default function Index() {
     fetchProductos();
   }, []);
 
-const normalizar = (texto = "") =>
-  texto
-    .toString()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/_/g, " ")
-    .toUpperCase();
+  const normalizar = (texto = "") =>
+    texto
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/_/g, " ")
+      .toUpperCase();
 
-const productosFiltrados = productos.filter((p) => {
-  const coincideBusqueda = p.nombre
-    .toLowerCase()
-    .includes(search.toLowerCase());
+  const productosFiltrados = productos.filter((p) => {
+    const coincideBusqueda = p.nombre
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-  const coincideCategoria =
-    categoriaActiva === "TODAS" ||
-    normalizar(p.categoria) === normalizar(categoriaActiva);
+    const coincideCategoria =
+      categoriaActiva === "TODAS" ||
+      normalizar(p.categoria) === normalizar(categoriaActiva);
 
-  return coincideBusqueda && coincideCategoria;
-});
+    return coincideBusqueda && coincideCategoria;
+  });
 
 
 
@@ -70,7 +70,7 @@ const productosFiltrados = productos.filter((p) => {
     <div className="app">
       <NavComponent />
 
-      <main>
+      <main className="catalog-main">
         {cargando ? (
           <h2 className="catalog-title">Cargando productos...</h2>
         ) : (
@@ -81,9 +81,8 @@ const productosFiltrados = productos.filter((p) => {
               {categorias.map((cat) => (
                 <button
                   key={cat}
-                  className={`category-btn ${
-                    categoriaActiva === cat ? "active" : ""
-                  }`}
+                  className={`category-btn ${categoriaActiva === cat ? "active" : ""
+                    }`}
                   onClick={() => setCategoriaActiva(cat)}
                 >
                   {cat}

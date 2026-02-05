@@ -52,7 +52,7 @@ export default function Login() {
           <h1 className="auth-title">Iniciar sesión</h1>
 
           {/* Correo */}
-          <label className="auth-label">Dirección de correo <span>(Solo se permite correo electrónico)</span></label>
+          <label className="auth-label">Dirección de correo <span>(Correo electrónico)</span></label>
           <div className="input-wrapper">
             <img src="Backend/uploads/icons/email.png" alt="correo" />
             <input type="email" className="input-field" onChange={(e) => setEmail(e.target.value)} />
@@ -65,18 +65,19 @@ export default function Login() {
             <input type="password" className="input-field" onChange={(e) => setPassword(e.target.value)} />
           </div>
 
-          <GlobalButton onClick={handleLogin} style={{ width: "40%" }}>Continuar</GlobalButton>
+          <GlobalButton onClick={handleLogin} style={{ width: "100%", marginBottom: "15px" }}>Continuar</GlobalButton>
 
-          <p
-            style={{ marginTop: "10px", cursor: "pointer", color: "blue" }}
-            onClick={() => navigate("/forgot-password")}
-          >
+          <p className="auth-link" onClick={() => navigate("/forgot-password")}>
             ¿Olvidaste tu contraseña?
           </p>
 
-          <GlobalButton onClick={() => navigate("/register")} style={{ width: "40%" }}>Registrarse</GlobalButton>
+          <br />
 
-          <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
+          <p className="auth-link" onClick={() => navigate("/register")}>
+            ¿No tienes cuenta? Regístrate aquí
+          </p>
+
+          <p className={`auth-message ${msg.toLowerCase().includes("error") ? "error" : "success"}`}>{msg}</p>
         </div>
       </div>
     </>

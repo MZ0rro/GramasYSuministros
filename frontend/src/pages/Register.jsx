@@ -49,11 +49,8 @@ export default function Register() {
 
       {/* FORMULARIO CON VALIDACIÓN */}
       <form onSubmit={handleSubmit} className="auth-container">
-
         <div className="auth-card">
-
           <h1 className="auth-title">Crear cuenta</h1>
-          <h2 className="auth-subtitle">Registro de usuario</h2>
 
           <label className="auth-label">Nombre</label>
           <div className="input-wrapper">
@@ -79,13 +76,15 @@ export default function Register() {
             <input className="input-field" type="password" name="password" onChange={handleChange} required minLength={6} />
           </div>
 
-          <GlobalButton type="submit" style={{ width: "40%" }}>Registrarse</GlobalButton>
+          <GlobalButton type="submit" style={{ width: "100%", marginBottom: "15px" }}>Registrarse</GlobalButton>
 
+          <p className="auth-link" onClick={() => navigate("/login")}>
+            ¿Ya tienes cuenta? Inicia sesión aquí
+          </p>
+
+          <p className={`auth-message ${msg.toLowerCase().includes("exitoso") ? "success" : "error"}`}>{msg}</p>
         </div>
-
       </form>
-
-      <p style={{ marginTop: "10px", color: "red" }}>{msg}</p>
 
     </>
   );

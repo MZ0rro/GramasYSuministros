@@ -6,7 +6,7 @@
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 7px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.25);
 }
 
 .auth-button:hover {
