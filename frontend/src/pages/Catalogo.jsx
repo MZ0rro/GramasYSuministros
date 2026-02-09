@@ -42,102 +42,112 @@ export default function Index() {
     fetchProductos();
   }, []);
 
-  const normalizar = (texto = "") =>
-    texto
-      .toString()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/_/g, " ")
-      .toUpperCase();
+const normalizar = (texto = "") =>
+  texto
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/_/g, " ")
+    .toUpperCase();
 
-  const productosFiltrados = productos.filter((p) => {
-    const coincideBusqueda = p.nombre
-      .toLowerCase()
-      .includes(search.toLowerCase());
+const productosFiltrados = productos.filter((p) => {
+  const coincideBusqueda = p.nombre
+    .toLowerCase()
+    .includes(search.toLowerCase());
 
-    const coincideCategoria =
-      categoriaActiva === "TODAS" ||
-      normalizar(p.categoria) === normalizar(categoriaActiva);
+  const coincideCategoria =
+    categoriaActiva === "TODAS" ||
+    normalizar(p.categoria) === normalizar(categoriaActiva);
 
-    return coincideBusqueda && coincideCategoria;
-  });
-
-
+  return coincideBusqueda && coincideCategoria;
+});
 
 
 
   return (
-    <div className="app">
+
+    <div className="app-catalogo">
+
       <NavComponent />
+      
+      <div className="filtros-container">
+        <div className="filtros-buttons">                    
+          <div className="search-box">
+            <img src="http://localhost:3001/uploads/icons/search.png" alt="buscar"/>
+            <input type="text" placeholder="Buscar productos..." onChange={(e) => setSearch(e.target.value)}/>
+          </div>
 
-      <main className="catalog-main">
+          {categorias.map((cat) => (
+            <button key={cat} className={`filtro-btn ${ categoriaActiva === cat ? "active" : "" }`} onClick={() => setCategoriaActiva(cat)}> {cat}</button>
+          ))}
+        </div>
+      </div>
+
+      <div className="catalogo-container">
+      
         {cargando ? (
-          <h2 className="catalog-title">Cargando productos...</h2>
+          <div className="loading-container">
+            <p>Cargando productos...</p>
+          </div>
         ) : (
-          <>
-            <h2 className="catalog-title"> {categoriaActiva === "TODAS" ? "Todos los Productos" : categoriaActiva}{" "} <span>({productosFiltrados.length})</span> </h2>
+    
+    <>
 
-            <div className="category-tabs">
-              {categorias.map((cat) => (
-                <button
-                  key={cat}
-                  className={`category-btn ${categoriaActiva === cat ? "active" : ""
-                    }`}
-                  onClick={() => setCategoriaActiva(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+      <section className="productos-section">
+        <h2 className="section-title">
+          {categoriaActiva === "TODAS"
+            ? "Todos los Productos"
+            : categoriaActiva}
+          <span className="product-count">({productosFiltrados.length}) </span>
+        </h2>
 
-            <div className="search-filter-container">
-              <div className="search-box">
-                <img src="http://localhost:3001/uploads/icons/search.png" alt="buscar" />
-                <input
-                  type="text"
-                  placeholder="Buscar productos..."
-                  onChange={(e) => setSearch(e.target.value)}
+        <div className="productos-grid">
+          {productosFiltrados.length > 0 ? ( productosFiltrados.map((prod) => (
+            <div key={prod.id_producto} className="product-card">
+
+              <span className="product-badge">
+                {prod.categoria}
+              </span>
+
+              <div className="product-image">
+                <img
+                  src={`http://localhost:3001/uploads/${prod.imagen}`}
+                  alt={prod.nombre}
                 />
               </div>
-              <button className="filter-btn">Filtrar por</button>
+
+              <div className="card-content">
+                <h3>{prod.nombre}</h3>
+                <p>{prod.descripcion}</p>
+              </div>
+
+              <div className="card-footer">
+                <span className="price">
+                  ${new Intl.NumberFormat("es-CO").format(prod.precio)}
+                </span>
+
+                <button className="btn-add"> VER MÁS </button>
+                
+              </div>
+
             </div>
 
-            <div className="product-grid">
-              {productosFiltrados.length > 0 ? (
-                productosFiltrados.map((prod) => (
-                  <div key={prod.id_producto} className="product-card">
-                    <img
-                      src={`http://localhost:3001/uploads/${prod.imagen}`}
-                      alt={prod.nombre}
-                    />
-                    <div className="card-content">
-                      <h3>{prod.nombre}</h3>
-                      <p>{prod.descripcion}</p>
-                      <p className="price">
-                        $
-                        {new Intl.NumberFormat("es-CO").format(prod.precio)}
-                      </p>
-                    </div>
-                    <center>
-                      <GlobalButton
-                        style={{ width: "70%", margin: "0px 0px 20px 0px" }}
-                      >
-                        Agregar al Carrito
-                      </GlobalButton>
-                    </center>
-                  </div>
-                ))
-              ) : (
-                <p>No hay productos disponibles.</p>
-              )}
-            </div>
-          </>
-        )}
-      </main>
+          ))
 
-      <footer>
-        © {new Date().getFullYear()} Gramas y Suministros — Todos los derechos reservados.
-      </footer>
+          ) : (
+            <p className="no-products"> No hay productos disponibles </p>
+          )}
+
+        </div>
+      </section>
+    </>
+  )}
+
+        <footer>
+          © {new Date().getFullYear()} Gramas y Suministros — Todos los derechos reservados.
+        </footer>
+
+      </div>
     </div>
   );
 }

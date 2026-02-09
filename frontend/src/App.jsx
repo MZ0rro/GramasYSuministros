@@ -20,6 +20,7 @@ import EntradasProductos from "./pages/AdminPages/HistoryInsert.jsx";
 import EliminarProducto from "./pages/AdminPages/Remove-Product.jsx";
 import Usuarios from "./pages/AdminPages/PRUEBAusuarios.jsx";
 import Reportes from "./pages/AdminPages/PRUEBAreportes.jsx"
+import Panel from "./pages/AdminPages/Panel.jsx"
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
       <Route path="/entradasProductos" element={<EntradasProductos />} />
       <Route path="/usuarios" element={<Usuarios />} />
       <Route path="/reportes" element={<Reportes />} />
+      <Route path="/panel" element={<Panel />} />
     </Routes>
   );
 }
