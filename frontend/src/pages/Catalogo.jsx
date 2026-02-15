@@ -66,7 +66,7 @@ const productosFiltrados = productos.filter((p) => {
 
   return (
 
-    <div className="app-catalogo">
+    <body>
 
       <NavComponent />
       
@@ -94,7 +94,7 @@ const productosFiltrados = productos.filter((p) => {
     <>
 
       <section className="productos-section">
-        <h2 className="section-title">
+        <h2>
           {categoriaActiva === "TODAS"
             ? "Todos los Productos"
             : categoriaActiva}
@@ -148,6 +148,6 @@ const productosFiltrados = productos.filter((p) => {
         </footer>
 
       </div>
-    </div>
+    </body>
   );
 }

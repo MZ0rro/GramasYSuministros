@@ -12,7 +12,7 @@ header {
 
 }
 
-header h1 {
+.title-app {
   font-size: 18px;
   font-weight: bold;
   text-align: center;

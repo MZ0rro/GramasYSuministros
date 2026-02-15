@@ -37,12 +37,12 @@ export default function NavComponent() {
 
     <header className="main-header">
       <div className="logo">
-        <h1>Gramas y Suministros</h1>
+        <h1 className="title-app">Gramas y Suministros</h1>
       </div>
 
       <nav style={{ display: "flex", gap: "1rem" }}>
         <Link to="/" className="option">Catálogo</Link>
-        <Link to="/contacto" className="option">Contacto</Link>
+        <Link to="/nosotros" className="option">Nosotros</Link>
 
         {!isLogged ?
           (

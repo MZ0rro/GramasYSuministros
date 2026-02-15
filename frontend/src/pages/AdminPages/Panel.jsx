@@ -86,7 +86,7 @@ export default function PanelAdmin() {
   };
 
   return (
-    <div className="dashboard-container">
+    <body>
       
       <NavComponent />
 
@@ -96,7 +96,7 @@ export default function PanelAdmin() {
       </div>
 
       <section className="dashboard-stats-section">
-        <h3>Estadísticas del sistema</h3>
+        <h2>Estadísticas del sistema</h2>
 
         {loading && <p>Cargando estadísticas...</p>}
         {error && <p className="error-text">{error}</p>}
@@ -139,7 +139,7 @@ export default function PanelAdmin() {
 
       {/* Sección de acciones rápidas */}
       <div className="dashboard-actions">
-        <h3 className="section-title-v2">Acceso Rápido</h3>
+        <h2>Acceso Rápido</h2>
 
         {/* Grid de botones de acción */}
         <div className="actions-grid">
@@ -174,6 +174,13 @@ export default function PanelAdmin() {
           </button>
         </div>
       </div>
-    </div>
+
+      <br /><br />
+
+      <footer>
+          © {new Date().getFullYear()} Gramas y Suministros — Todos los derechos reservados.
+        </footer>
+
+    </body>
   );
 }
