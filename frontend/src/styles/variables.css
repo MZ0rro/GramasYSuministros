@@ -26,7 +26,8 @@
     --radius-full: 999px;
 
     /* Typography */
-    --font-main: 'Courier New', Courier, monospace;
+    --font-main: 'Times New Roman', Times, serif;
+    
 }
 
 body {

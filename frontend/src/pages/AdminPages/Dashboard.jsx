@@ -137,8 +137,8 @@ const InventarioGrama = () => {
                 <tr key={producto.id_producto}>
                   <td>{producto.id_producto}</td>
                   <td>{producto.nombre}</td>
-                  <td>{producto.altura || "N/A"}</td>
-                  <td>{producto.peso || "N/A"}</td>
+                  <td>{producto.altura ? `${producto.altura} mm` : "N/A"}</td>
+                  <td>{producto.peso ? `${producto.peso} kg` : "N/A"}</td>
                   <td>{producto.stock}</td>
                   <td>${producto.precio}</td>
                   <td>

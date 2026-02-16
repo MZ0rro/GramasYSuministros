@@ -7,15 +7,17 @@ export default function Index() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [search, setSearch] = useState("");
-  const [categoriaActiva, setCategoriaActiva] = useState("TODAS");
+  const [categoriaActiva, setCategoriaActiva] = useState("Todas");
 
   const categorias = [
-    "TODAS",
-    "GRAMA SINTÉTICA",
-    "GRAMA NATURAL",
-    "ABONOS",
-    "HERRAMIENTAS",
-    "ACCESORIOS"
+    "Todas",
+    "Deportiva",
+    "Residencial",
+    "Comercial",
+    "Decorativa",
+    "Eventos",
+    "Suministro",
+    "Mascotas"
   ];
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const productosFiltrados = productos.filter((p) => {
     .includes(search.toLowerCase());
 
   const coincideCategoria =
-    categoriaActiva === "TODAS" ||
+    categoriaActiva === "Todas" ||
     normalizar(p.categoria) === normalizar(categoriaActiva);
 
   return coincideBusqueda && coincideCategoria;
@@ -95,7 +97,7 @@ const productosFiltrados = productos.filter((p) => {
 
       <section className="productos-section">
         <h2>
-          {categoriaActiva === "TODAS"
+          {categoriaActiva === "Todas"
             ? "Todos los Productos"
             : categoriaActiva}
           <span className="product-count">({productosFiltrados.length}) </span>
@@ -111,7 +113,7 @@ const productosFiltrados = productos.filter((p) => {
 
               <div className="product-image">
                 <img
-                  src={`http://localhost:3001/uploads/${prod.imagen}`}
+                  src={`http://localhost:3001/uploads/img_products/${prod.imagen}`}
                   alt={prod.nombre}
                 />
               </div>
