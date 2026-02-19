@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import NavComponent from "../components/GlobalNav";
+import ProductCard from "../components/ProductCard";
 import "../styles/Catalogo.css";
 import GlobalButton from "../components/GlobalButton";
+import Footer from "../components/Footer";
 
 export default function Index() {
   const [productos, setProductos] = useState([]);
@@ -68,7 +70,7 @@ const productosFiltrados = productos.filter((p) => {
 
   return (
 
-    <body>
+    <>
 
       <NavComponent />
       
@@ -105,35 +107,7 @@ const productosFiltrados = productos.filter((p) => {
 
         <div className="productos-grid">
           {productosFiltrados.length > 0 ? ( productosFiltrados.map((prod) => (
-            <div key={prod.id_producto} className="product-card">
-
-              <span className="product-badge">
-                {prod.categoria}
-              </span>
-
-              <div className="product-image">
-                <img
-                  src={`http://localhost:3001/uploads/img_products/${prod.imagen}`}
-                  alt={prod.nombre}
-                />
-              </div>
-
-              <div className="card-content">
-                <h3>{prod.nombre}</h3>
-                <p>{prod.descripcion}</p>
-              </div>
-
-              <div className="card-footer">
-                <span className="price">
-                  ${new Intl.NumberFormat("es-CO").format(prod.precio)}
-                </span>
-
-                <button className="btn-add"> VER MÁS </button>
-                
-              </div>
-
-            </div>
-
+            <ProductCard key={prod.id_producto} producto={prod} />
           ))
 
           ) : (
@@ -142,14 +116,14 @@ const productosFiltrados = productos.filter((p) => {
 
         </div>
       </section>
+
+      <br /><br />
     </>
   )}
 
-        <footer>
-          © {new Date().getFullYear()} Gramas y Suministros — Todos los derechos reservados.
-        </footer>
+        <Footer />
 
       </div>
-    </body>
+    </>
   );
 }

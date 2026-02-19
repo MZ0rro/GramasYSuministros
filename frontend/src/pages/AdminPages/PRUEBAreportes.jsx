@@ -18,7 +18,7 @@ export default function Reportes() {
   ];
 
   return (
-    <body>
+    <>
       
       <NavComponent />
 
@@ -45,6 +45,6 @@ export default function Reportes() {
           </div>
         </div>
       </main>
-    </body>
+    </>
   );
 }

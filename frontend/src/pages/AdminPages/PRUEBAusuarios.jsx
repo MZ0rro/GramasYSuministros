@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Dashboard.css'; // Reutilizamos estilos de admin
+import '../../styles/PRUEBAusuarios.css'; // Reutilizamos estilos de admin
 import NavComponent from "../../components/GlobalNav";
 
 export default function Usuarios() {
@@ -28,49 +28,88 @@ export default function Usuarios() {
     }, []);
 
     return (
-        <div className="admin-container">
-            
-            <NavComponent />
+  <div className="admin-layout">
 
-            <main className="admin-content">
-                <div className="table-container">
-                    {loading ? (
-                        <p>Cargando usuarios...</p>
-                    ) : (
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {usuarios.map(user => (
-                                    <tr key={user.id}>
-                                        <td>{user.id}</td>
-                                        <td>{user.nombre}</td>
-                                        <td>{user.email}</td>
-                                        <td>
-                                            <span className={`badge ${user.rol === 'Administrador' ? 'badge-admin' : 'badge-client'}`}>
-                                                {user.rol}
-                                            </span>
-                                        </td>
-                                        <td>{user.estado}</td>
-                                        <td>
-                                            <button className="btn-action btn-edit">Editar</button>
-                                            <button className="btn-action btn-delete">Eliminar</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-                </div>
-            </main>
+    {/* SIDEBAR */}
+    <aside className="sidebar">
+      <h2>Dashboard</h2>
+
+      <nav>
+        <button onClick={() => navigate("/panel")}>Inventario</button>
+        <button onClick={() => navigate("/usuarios")}>Usuarios</button>
+        <button onClick={() => navigate("/stock")}>Stock</button>
+        <button onClick={() => navigate("/reportes")}>Reportes</button>
+        <button onClick={() => navigate("/")}>Catalogo</button>
+      </nav>
+    </aside>
+
+    {/* MAIN */}
+    <div className="main-area">
+
+      <section className="table-section">
+        <div className="table-card">
+
+          <div className="table-header">
+            <h3>Gestión de Usuarios</h3>
+            <div className="table-actions">
+              <button className="btn-primary">
+                Nuevo Usuario
+              </button>
+            </div>
+          </div>
+
+          <div className="table-container">
+
+            {loading ? (
+              <p style={{ padding: "20px" }}>Cargando usuarios...</p>
+            ) : (
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {usuarios.map(user => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.nombre}</td>
+                      <td>{user.email}</td>
+
+                      <td>
+                        <span className={`badge ${user.rol === 'Administrador' ? 'badge-admin' : 'badge-client'}`}>
+                          {user.rol}
+                        </span>
+                      </td>
+
+                      <td>
+                        <span className="status estado-activo">
+                          {user.estado}
+                        </span>
+                      </td>
+
+                      <td>
+                        <button className="btn-extra">Editar</button>
+                        <button className="btn-danger">Eliminar</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+          </div>
         </div>
-    );
+      </section>
+
+    </div>
+  </div>
+);
+
 }

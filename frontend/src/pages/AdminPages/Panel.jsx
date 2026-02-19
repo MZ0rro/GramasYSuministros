@@ -1,186 +1,150 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavComponent from "../../components/GlobalNav";
-import StatsCard from "../../components/StatsCard";
 import "../../styles/Panel.css";
+import Footer from "../../components/Footer";
+import NavComponent from "../../components/GlobalNav";
 
-export default function PanelAdmin() {
+export default function AdminDashboard() {
   const navigate = useNavigate();
 
-  // ====== USUARIO DESDE LOCALSTORAGE (MISMA LÓGICA QUE PERFIL) ======
-  const rawUsuario = localStorage.getItem("usuario");
-  let usuario = null;
-
-  try {
-    usuario = rawUsuario ? JSON.parse(rawUsuario) : null;
-  } catch {
-    usuario = null;
-  }
-
-  // ====== PROTECCIÓN DE RUTA ======
-  useEffect(() => {
-    if (!usuario) {
-      navigate("/login");
-      return;
-    }
-
-    if (usuario.id_rol !== 1) {
-      navigate("/perfil"); // cliente no entra al panel
-    }
-  }, [usuario, navigate]);
-
-  if (!usuario || usuario.id_rol !== 1) return null;
-
-  // ====== ESTADOS ======
+  const [productos, setProductos] = useState([]);
   const [stats, setStats] = useState({
-    totalUsuarios: 0,
-    totalProductos: 0,
-    totalStock: 0,
-    productosAgotados: 0
+    usuarios: 0,
+    productos: 0,
+    stock: 0,
+    agotados: 0
   });
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // ====== FETCH DE ESTADÍSTICAS ======
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const productosRes = await fetch("http://localhost:3001/api/productos");
-        const productosData = await productosRes.json();
-
-        const stockRes = await fetch("http://localhost:3001/api/stock");
-        const stockData = await stockRes.json();
-
-        const totalStock = stockData.reduce(
-          (sum, item) => sum + (item.cantidad_actual || 0),
-          0
-        );
-
-        const productosAgotados = stockData.filter(
-          item => item.cantidad_actual === 0
-        ).length;
-
-        setStats({
-          totalUsuarios: 5, // temporal
-          totalProductos: productosData.length,
-          totalStock,
-          productosAgotados
-        });
-
-        setLoading(false);
-      } catch (err) {
-        setError("Error al cargar estadísticas");
-        setLoading(false);
-      }
-    };
-
-    fetchStats();
+    obtenerDatos();
   }, []);
 
-  // ====== LOGOUT UNIFICADO ======
-  const handleLogout = () => {
-    localStorage.removeItem("usuario");
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+const obtenerDatos = async () => {
+  try {
+    // 🔹 Productos
+    const productosRes = await fetch("http://localhost:3001/api/inventario");
+    const productosData = await productosRes.json();
+    setProductos(productosData);
+
+    // 🔹 Stock (IGUAL QUE EN EL PANEL ANTIGUO)
+    const stockRes = await fetch("http://localhost:3001/api/stock");
+    const stockData = await stockRes.json();
+
+    const totalStock = stockData.reduce(
+      (sum, item) => sum + (item.cantidad_actual || 0),
+      0
+    );
+
+    const agotados = stockData.filter(
+      item => item.cantidad_actual === 0
+    ).length;
+
+    setStats({
+      usuarios: 5,
+      productos: productosData.length,
+      stock: totalStock,
+      agotados
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 
   return (
-    <body>
-      
-      <NavComponent />
 
-      <div className="dashboard-welcome">
-        <h3>Bienvenido, {usuario.nombre}</h3>
-        <p>Rol: Administrador</p>
-      </div>
+    <>
 
-      <section className="dashboard-stats-section">
-        <h2>Estadísticas del sistema</h2>
+    <div className="admin-layout">
 
-        {loading && <p>Cargando estadísticas...</p>}
-        {error && <p className="error-text">{error}</p>}
+      {/* SIDEBAR */}
+      <aside className="sidebar">
+        <h2>Dashboard</h2>
 
-        {!loading && !error && (
-          <div className="stats-grid">
-            <StatsCard
-              icon="icon-users"
-              title="Total Usuarios"
-              value={stats.totalUsuarios}
-              color="blue"
-            />
+        <nav>
+          <button onClick={() => navigate("/panel")}>Inventario</button>
+          <button onClick={() => navigate("/usuarios")}>Usuarios</button>
+          <button onClick={() => navigate("/stock")}>Stock</button>
+          <button onClick={() => navigate("/reportes")}>Reportes</button>
+          <button onClick={() => navigate("/")}>Catalogo</button>
+        </nav>
+      </aside>
 
-            {/* Tarjeta de total de productos */}
-            <StatsCard
-              icon="icon-products"
-              title="Total Productos"
-              value={stats.totalProductos}
-              color="green"
-            />
+      {/* MAIN */}
+      <div className="main-area">
 
-            {/* Tarjeta de stock total */}
-            <StatsCard
-              icon="icon-stock"
-              title="Stock Total"
-              value={stats.totalStock}
-              color="purple"
-            />
-
-            {/* Tarjeta de productos agotados */}
-            <StatsCard
-              icon="icon-alert"
-              title="Productos Agotados"
-              value={stats.productosAgotados}
-              color="orange"
-            />
+        {/* STATS */}
+        <section className="stats-row">
+          <div className="stat-card green">
+            <h3>{stats.productos}</h3>
+            <p>Productos</p>
           </div>
-        )}
-      </section>
 
-      {/* Sección de acciones rápidas */}
-      <div className="dashboard-actions">
-        <h2>Acceso Rápido</h2>
+          <div className="stat-card purple">
+            <h3>{stats.usuarios}</h3>
+            <p>Usuarios</p>
+          </div>
 
-        {/* Grid de botones de acción */}
-        <div className="actions-grid">
-          {/* Botón para ir al panel de administración */}
-          <button
-            className="action-card"
-            onClick={() => navigate('/usuarios')}
-          >
-            <div className="action-icon icon-admin"></div>
-            <h4>Panel de Administración</h4>
-            <p>Gestionar usuarios, inventario y reportes</p>
-          </button>
+          <div className="stat-card blue">
+            <h3>{stats.stock}</h3>
+            <p>Stock Total</p>
+          </div>
 
-          {/* Botón para ir a reportes */}
-          <button
-            className="action-card"
-            onClick={() => navigate('/reportes')}
-          >
-            <div className="action-icon icon-reports"></div>
-            <h4>Ver Reportes</h4>
-            <p>Estadísticas y análisis del sistema</p>
-          </button>
+          <div className="stat-card orange">
+            <h3>{stats.agotados}</h3>
+            <p>Agotados</p>
+          </div>
+        </section>
 
-          {/* Botón para ir a inventario */}
-          <button
-            className="action-card"
-            onClick={() => navigate('/dashboard')}
-          >
-            <div className="action-icon icon-inventory-action"></div>
-            <h4>Gestionar Inventario</h4>
-            <p>Administrar productos y stock</p>
-          </button>
-        </div>
+        {/* TABLA */}
+        <section className="table-section">
+  <div className="table-card">
+
+    <div className="table-header">
+      <h3>Inventario</h3>
+      <div className="table-actions">
+        <button className="btn-secondary" onClick={() => navigate("/eliminarProducto")}>Eliminar</button>
+        <button className="btn-primary" onClick={() => navigate("/insertarProducto")}>Agregar</button>
       </div>
+    </div>
 
-      <br /><br />
+    <div className="table-container">
 
-      <footer>
-          © {new Date().getFullYear()} Gramas y Suministros — Todos los derechos reservados.
-        </footer>
+          <table className="admin-table">
 
-    </body>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Precio</th>
+                <th>Extras</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.map(p => (
+                <tr key={p.id_producto}>
+                  <td>{p.id_producto}</td>
+                  <td>{p.nombre}</td>
+                  <td>{p.altura ? `${p.altura} mm` : "N/A"}</td>
+                  <td>{p.peso ? `${p.peso} kg` : "N/A"}</td>
+                  <td>${p.precio}</td>
+                  <td><button className="btn-extra" onClick={() => navigate("/insertarProducto")}>Detalles</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+              </div>
+        </section>
+
+      </div>
+    </div>
+
+    <Footer />
+
+    </>
   );
 }

@@ -1,82 +1,77 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import NavComponent from "../components/GlobalNav";
+import Footer from "../components/Footer";
 import "../styles/Perfil.css";
 
-export default function Dashboard() {
+export default function Perfil() {
   const navigate = useNavigate();
 
-  // ===== USUARIO DESDE LOCALSTORAGE =====
-  const rawUsuario = localStorage.getItem("usuario");
-  let usuario = null;
+  // ===== USUARIO DESDE LOCALSTORAGE (más limpio) =====
+  const usuario = useMemo(() => {
+    try {
+      const data = localStorage.getItem("usuario");
+      return data ? JSON.parse(data) : null;
+    } catch {
+      return null;
+    }
+  }, []);
 
-  try {
-    usuario = rawUsuario ? JSON.parse(rawUsuario) : null;
-  } catch {
-    usuario = null;
-  }
-
-  // ===== PROTECCIÓN DE LOGIN =====
+  // ===== PROTECCIÓN GENERAL =====
   useEffect(() => {
     if (!usuario) {
       navigate("/login");
+      return;
+    }
+
+    if (usuario.id_rol === 1) {
+      navigate("/panel");
     }
   }, [usuario, navigate]);
 
-  // ===== REDIRECCIÓN SI ES ADMIN =====
-  useEffect(() => {
-    if (usuario?.id_rol === 1) {
-      navigate("/panel"); // o /panel-admin
-    }
-  }, [usuario, navigate]);
-
-  if (!usuario) return null;
-
-  const isAdmin = usuario.id_rol === 1;
+  if (!usuario || usuario.id_rol === 1) return null;
 
   return (
     <div className="dashboard">
       <NavComponent />
 
-      <main>
-        <div className="profile-welcome glass-effect">
+      <main className="perfil-container">
+        <section className="perfil-header">
           <h2>Bienvenido, {usuario.nombre}</h2>
-          <p>Cuenta de Cliente</p>
-        </div>
+          <span className="perfil-badge">Cliente</span>
+        </section>
 
-        {/* PERFIL USUARIO NORMAL */}
-        {!isAdmin && (
-          <div className="options-grid">
-            <div
-              className="link-card glass-effect"
-              onClick={() => navigate("/mis-pedidos")}
-            >
-              <div className="icon-box">📦</div>
-              <h3>Mis pedidos</h3>
-            </div>
-
-            <div
-              className="link-card glass-effect"
-              onClick={() => navigate("/editar-perfil")}
-            >
-              <div className="icon-box">👤</div>
-              <h3>Editar perfil</h3>
-            </div>
-
-            <div
-              className="link-card glass-effect"
-              onClick={() => navigate("/mis-cotizaciones")}
-            >
-              <div className="icon-box">📝</div>
-              <h3>Mis cotizaciones</h3>
-            </div>
+        <section className="perfil-grid">
+          <div
+            className="perfil-card"
+            onClick={() => navigate("/mis-pedidos")}
+          >
+            <div className="perfil-icon">📦</div>
+            <h3>Mis pedidos</h3>
+            <p>Consulta el estado y detalles de tus pedidos.</p>
           </div>
-        )}
+
+          <div
+            className="perfil-card"
+            onClick={() => navigate("/editar-perfil")}
+          >
+            <div className="perfil-icon">👤</div>
+            <h3>Editar perfil</h3>
+            <p>Actualiza tu información personal.</p>
+          </div>
+
+          <div
+            className="perfil-card"
+            onClick={() => navigate("/mis-cotizaciones")}
+          >
+            <div className="perfil-icon">📝</div>
+            <h3>Mis cotizaciones</h3>
+            <p>Revisa las cotizaciones solicitadas.</p>
+          </div>
+        </section>
       </main>
 
-      <footer>
-        © 2025 Gramas y Suministros — Todos los derechos reservados.
-      </footer>
+      <Footer />
     </div>
   );
 }

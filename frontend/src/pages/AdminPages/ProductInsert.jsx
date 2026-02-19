@@ -122,7 +122,7 @@ const InsertarProducto = () => {
 
         // Redirigir al dashboard después de 2 segundos
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/panel");
         }, 2000);
       } else {
         // Mostrar el error específico del backend si existe
@@ -157,8 +157,13 @@ const InsertarProducto = () => {
     <>
       <NavComponent />
 
-      <div className="container">
-        <h2>Insertar nuevo producto</h2>
+      <div className="insert-wrapper">
+  <div className="insert-card">
+    <div className="insert-header">
+      <h2>Agregar Nuevo Producto</h2>
+      <p>Completa la información para añadirlo al catálogo</p>
+    </div>
+
 
         {/* Mensaje de éxito o error */}
         {mensaje.texto && (
@@ -466,6 +471,8 @@ const InsertarProducto = () => {
           </div>
         </form>
       </div>
+        </div>
+
     </>
   );
 };

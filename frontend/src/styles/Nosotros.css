@@ -11,13 +11,7 @@
 }
 
 .outlined-text {
-    color: #2e7d32;
-    text-shadow:
-        -1px -1px 0 #fff,
-        1px -1px 0 #fff,
-        -1px 1px 0 #fff,
-        1px 1px 0 #fff,
-        2px 2px 5px rgba(0, 0, 0, 0.2);
+    color: #7cd36d;
     font-weight: 900;
     letter-spacing: 1px;
     margin-bottom: 15px;
@@ -141,11 +135,77 @@
     padding-bottom: 10px;
 }
 
-/* Footer */
-.qs-footer {
-    text-align: center;
-    padding: 20px;
-    background: #2e7d32;
-    color: white;
-    margin-top: 40px;
+/* HERO */
+
+.nosotros-hero {
+  height: 55vh;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("https://performancelandscape.org/wp-content/uploads/2021/04/BANNER2.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 40px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* ESTADÍSTICAS */
+
+.nosotros-stats {
+  display: flex;
+  justify-content: space-around;
+  background: #2e7d32;
+  color: white;
+  padding: 40px 20px;
+  border-radius: 20px;
+  margin: 60px 0;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stat h3 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.stat p {
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* POR QUÉ ELEGIRNOS */
+
+.por-que {
+  margin: 60px 0;
+  text-align: center;
+}
+
+.por-que-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.por-que-grid div {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.por-que-grid div:hover {
+  transform: translateY(-8px);
 }

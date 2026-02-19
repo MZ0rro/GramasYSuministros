@@ -11,7 +11,6 @@ import VerifyCode from "./pages/verify-code.jsx";
 import ResetPassword from "./pages/reset-password.jsx";
 
 // ADMIN PAGES
-import Dashboard from "./pages/AdminPages/Dashboard.jsx";
 import Stock from "./pages/AdminPages/Stock.jsx"
 import InsertarProducto from "./pages/AdminPages/ProductInsert.jsx";
 import EditarProducto from "./pages/AdminPages/EditProduct.jsx";
@@ -38,7 +37,6 @@ export default function App() {
       <Route path="/nosotros" element={<Nosotros />} />
 
       {/*ADMIN ROUTES */}
-      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/stock" element={<Stock />} />
       <Route path="/insertarProducto" element={<InsertarProducto />} />
       <Route path="/editar-producto/:id" element={<EditarProducto />} />
