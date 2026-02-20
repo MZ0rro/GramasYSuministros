@@ -22,7 +22,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/productos', productRoutes);
-app.use("/api", InventoryRoutes);
+app.use("/api/inventario", InventoryRoutes);
 app.use("/api", stockRoutes);
 app.use('/api/entries', entryRoutes);
 app.use('/api/proveedores', proveedorRoutes);

@@ -45,7 +45,7 @@ const eliminarProducto = async (id, nombre) => {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-            `http://localhost:3001/api/productos/${id}`,
+            `http://localhost:3001/api/inventario/${id}`,
             {
                 method: "DELETE",
                 headers: {

@@ -28,7 +28,7 @@ export default function Index() {
         let data = [];
 
         try {
-          const res = await fetch("http://localhost:3001/api/productos");
+          const res = await fetch("http://localhost:3001/api/inventario");
 
           if (res.ok) {
             data = await res.json();

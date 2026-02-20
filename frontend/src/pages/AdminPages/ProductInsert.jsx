@@ -6,22 +6,17 @@ import "../../styles/ProductInsert.css";
 const InsertarProducto = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    nombre: "",
-    altura: "",
-    peso: "",
-    stock: 0,
-    color: "",
-    aplicacion: "",
-    material: "",
-    marca: "",
-    garantia: "",
-    precio: "",
-    descuento: "",
-    descripcion: "",
-    campoAdicional: "",
-    imagen: null,
-  });
+const [formData, setFormData] = useState({
+  nombre: "",
+  altura: "",
+  peso: "",
+  stock: 0,
+  material: "",
+  marca: "",
+  precio: "",
+  descripcion: "",
+  imagen: null,
+});
 
   const [previewImage, setPreviewImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -67,16 +62,7 @@ const InsertarProducto = () => {
       data.append("material", formData.material);
       data.append("marca", formData.marca);
       data.append("precio", formData.precio);
-
-      // Combinar descripción con otros campos
-      let descripcionCompleta = formData.descripcion;
-      if (formData.color) descripcionCompleta += `\nColor: ${formData.color}`;
-      if (formData.aplicacion) descripcionCompleta += `\nAplicación: ${formData.aplicacion}`;
-      if (formData.garantia) descripcionCompleta += `\nGarantía: ${formData.garantia}`;
-      if (formData.descuento) descripcionCompleta += `\nDescuento: ${formData.descuento}`;
-      if (formData.campoAdicional) descripcionCompleta += `\n${formData.campoAdicional}`;
-
-      data.append("descripcion", descripcionCompleta);
+      data.append("descripcion", formData.descripcion);
 
       // Agregar imagen si existe
       if (formData.imagen) {
@@ -85,7 +71,7 @@ const InsertarProducto = () => {
 
       // Enviar al backend
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3001/api/productos", {
+      const response = await fetch("http://localhost:3001/api/inventario", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -107,15 +93,10 @@ const InsertarProducto = () => {
           altura: "",
           peso: "",
           stock: 0,
-          color: "",
-          aplicacion: "",
           material: "",
           marca: "",
-          garantia: "",
           precio: "",
-          descuento: "",
           descripcion: "",
-          campoAdicional: "",
           imagen: null,
         });
         setPreviewImage(null);
@@ -229,17 +210,6 @@ const InsertarProducto = () => {
               />
             </div>
 
-            {/* Campo adicional con lápiz */}
-            <div className="campo-adicional">
-              <input
-                type="text"
-                name="campoAdicional"
-                placeholder="..."
-                value={formData.campoAdicional}
-                onChange={handleChange}
-              />
-            </div>
-
             {/* Botones de acción */}
             <div className="actions">
               <button className="btn" type="button" onClick={handleGoBack} disabled={loading}>
@@ -253,7 +223,8 @@ const InsertarProducto = () => {
 
           {/* COLUMNA DERECHA */}
           <div className="right-column">
-            {/* Fila 1: Altura, Peso, Stock, Color */}
+            {/* Fila 1 */}
+            
             <div className="fields-row">
               <div className="field-compact">
                 <label>Altura</label>
@@ -310,47 +281,9 @@ const InsertarProducto = () => {
                   />
                 </div>
               </div>
-
-              <div className="field-compact">
-                <label>Color</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="color"
-                    placeholder="..."
-                    value={formData.color}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
             </div>
 
-            {/* Fila 2: Aplicación, Material, Marca */}
-            <div className="fields-row">
-              <div className="field-compact">
-                <label>Aplicación</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="aplicacion"
-                    placeholder="..."
-                    value={formData.aplicacion}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
+            {/* Fila 2: Material, Marca */}
 
               <div className="field-compact">
                 <label>Material</label>
@@ -391,26 +324,7 @@ const InsertarProducto = () => {
               </div>
             </div>
 
-            {/* Fila 3: Garantía, Precio x m2, Descuento */}
-            <div className="fields-row">
-              <div className="field-compact">
-                <label>Garantía</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="garantia"
-                    placeholder="..."
-                    value={formData.garantia}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
+            {/* Fila 3: Precio x m2*/}
 
               <div className="field-compact">
                 <label>Precio x m2</label>
@@ -431,26 +345,6 @@ const InsertarProducto = () => {
                 </div>
               </div>
 
-              <div className="field-compact">
-                <label>Descuento</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="descuento"
-                    placeholder="..."
-                    value={formData.descuento}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
             {/* Descripción del producto */}
             <div className="description">
               <label>Descripción del producto</label>
@@ -468,7 +362,6 @@ const InsertarProducto = () => {
                 </span>
               </div>
             </div>
-          </div>
         </form>
       </div>
         </div>
