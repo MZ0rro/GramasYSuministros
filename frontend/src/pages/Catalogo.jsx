@@ -62,6 +62,39 @@ export default function Index() {
     return coincideBusqueda && coincideCategoria;
   });
 
+  const rawUsuario = localStorage.getItem("usuario");
+  const isLoggedIn = !!rawUsuario;
+
+  const handleComprar = async (id_producto) => {
+    if (!isLoggedIn) {
+      alert("Debes iniciar sesión para comprar");
+      return;
+    }
+
+    const usuario = JSON.parse(rawUsuario);
+    try {
+      const res = await fetch("http://localhost:3001/api/usuarios/comprar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id_usuario: usuario.id_usuario,
+          id_producto: id_producto,
+          cantidad: 1
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("✅ " + data.message);
+        window.location.reload(); // Recargar para ver el descuento en stock
+      } else {
+        alert("❌ " + data.message);
+      }
+    } catch (err) {
+      alert("❌ Error al conectar con el servidor.");
+    }
+  };
+
 
 
 
@@ -118,13 +151,21 @@ export default function Index() {
                         {new Intl.NumberFormat("es-CO").format(prod.precio)}
                       </p>
                     </div>
-                    <center>
-                      <GlobalButton
-                        style={{ width: "70%", margin: "0px 0px 20px 0px" }}
-                      >
-                        Agregar al Carrito
-                      </GlobalButton>
-                    </center>
+                    {isLoggedIn && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center', marginBottom: '20px' }}>
+                        <GlobalButton
+                          style={{ width: "80%" }}
+                          onClick={() => handleComprar(prod.id_producto)}
+                        >
+                          Comprar Ahora
+                        </GlobalButton>
+                      </div>
+                    )}
+                    {!isLoggedIn && (
+                      <center style={{ padding: '0 0 20px 0' }}>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Inicia sesión para comprar</p>
+                      </center>
+                    )}
                   </div>
                 ))
               ) : (

@@ -10,6 +10,10 @@ import Logout from "./pages/Logout.jsx"
 import ForgotPassword from "./pages/forgot-password.jsx";
 import VerifyCode from "./pages/verify-code.jsx";
 import ResetPassword from "./pages/reset-password.jsx";
+import MisPedidos from "./pages/MisPedidos.jsx";
+import EditarPerfil from "./pages/EditarPerfil.jsx";
+import MisCotizaciones from "./pages/MisCotizaciones.jsx";
+
 
 // ADMIN PAGES
 import Dashboard from "./pages/AdminPages/Dashboard.jsx";
@@ -35,6 +39,9 @@ export default function App() {
       <Route path="/verify-code" element={<VerifyCode />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/mis-pedidos" element={<MisPedidos />} />
+      <Route path="/editar-perfil" element={<EditarPerfil />} />
+      <Route path="/mis-cotizaciones" element={<MisCotizaciones />} />
 
       {/*ADMIN ROUTES */}
       <Route path="/dashboard" element={<Dashboard />} />

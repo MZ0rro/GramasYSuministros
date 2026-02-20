@@ -9,6 +9,7 @@ const InventoryRoutes = require("./routes/InventoryRoutes");
 const stockRoutes = require("./routes/StockRoutes");
 const entryRoutes = require('./routes/entryRoutes');
 const proveedorRoutes = require('./routes/proveedorRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -26,6 +27,8 @@ app.use("/api", InventoryRoutes);
 app.use("/api", stockRoutes);
 app.use('/api/entries', entryRoutes);
 app.use('/api/proveedores', proveedorRoutes);
+app.use('/api/usuarios', userRoutes);
+
 
 const PORT = process.env.PORT || 3001;
 

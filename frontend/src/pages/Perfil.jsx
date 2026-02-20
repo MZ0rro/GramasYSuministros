@@ -44,15 +44,15 @@ export default function Dashboard() {
         {/* USUARIO NORMAL */}
         {!isAdmin && (
           <div className="options-grid">
-            <div className="link-card glass-effect" onClick={() => navigate("/")}>
+            <div className="link-card glass-effect" onClick={() => navigate("/mis-pedidos")}>
               <div className="icon-box">📦</div>
               <h3>Mis pedidos</h3>
             </div>
-            <div className="link-card glass-effect" onClick={() => navigate("/")}>
+            <div className="link-card glass-effect" onClick={() => navigate("/editar-perfil")}>
               <div className="icon-box">👤</div>
               <h3>Editar perfil</h3>
             </div>
-            <div className="link-card glass-effect" onClick={() => navigate("/")}>
+            <div className="link-card glass-effect" onClick={() => navigate("/mis-cotizaciones")}>
               <div className="icon-box">📝</div>
               <h3>Mis cotizaciones</h3>
             </div>

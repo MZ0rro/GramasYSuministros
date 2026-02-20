@@ -184,3 +184,47 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: "Error actualizando contraseña" });
   }
 };
+
+// -----------------------------------------------
+// UPDATE PROFILE
+// -----------------------------------------------
+exports.updateProfile = async (req, res) => {
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+    const { id_usuario } = req.params;
+    const { nombre, apellido, email, num_telefono, direccion_facturacion } = req.body;
+
+    // Actualizar tabla usuario
+    await connection.query(
+      "UPDATE usuario SET nombre = ?, apellido = ?, email = ? WHERE id_usuario = ?",
+      [nombre, apellido, email, id_usuario]
+    );
+
+    // Actualizar tabla cliente
+    await connection.query(
+      "UPDATE cliente SET num_telefono = ?, direccion_facturacion = ? WHERE id_usuario = ?",
+      [num_telefono, direccion_facturacion, id_usuario]
+    );
+
+    await connection.commit();
+
+    // Obtener usuario actualizado para el frontend
+    const [updatedUser] = await connection.query(
+      "SELECT * FROM usuario WHERE id_usuario = ?",
+      [id_usuario]
+    );
+
+    res.json({ 
+      message: "Perfil actualizado correctamente",
+      user: updatedUser[0]
+    });
+
+  } catch (err) {
+    await connection.rollback();
+    console.error(err);
+    res.status(500).json({ message: "Error actualizando el perfil" });
+  } finally {
+    connection.release();
+  }
+};
