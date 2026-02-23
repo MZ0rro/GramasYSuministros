@@ -11,23 +11,28 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-/* ================= GET ================= */
+
+
+// GET: TRAER TODOS LOS PRODUCTOS EXISTENTES
+
 router.get("/", async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT
-        id_producto,
-        nombre,
-        altura,
-        peso,
-        stock,
-        precio,
-        marca,
-        material,
-        descripcion,
-        imagen
-      FROM producto
-      ORDER BY id_producto
+        p.id_producto,
+        p.nombre,
+        p.altura,
+        p.peso,
+        IFNULL(s.cantidad_actual, 0) AS stock,
+        p.precio,
+        p.marca,
+        p.material,
+        p.descripcion,
+        p.imagen
+      FROM producto p
+      LEFT JOIN stock s 
+        ON p.id_producto = s.id_producto
+      ORDER BY p.id_producto
     `);
 
     res.json(results);
@@ -37,55 +42,187 @@ router.get("/", async (req, res) => {
   }
 });
 
-/* ================= POST ================= */
-router.post("/", upload.single("imagen"), async (req, res) => {
+
+
+// GET: TRAER SOLO UN PRODUCTO POR SU ID
+
+router.get('/:id', async (req, res) => {
   try {
-    const {
-      nombre,
-      altura,
-      peso,
-      stock,
-      material,
-      marca,
-      precio,
-      descripcion
-    } = req.body;
+    const { id } = req.params;
 
-    const imagen = req.file
-      ? `uploads/${req.file.filename}`
-      : null;
+    const [results] = await pool.query(`
+      SELECT
+        p.id_producto,
+        p.nombre,
+        p.altura,
+        p.peso,
+        IFNULL(s.cantidad_actual, 0) AS stock,
+        p.precio,
+        p.marca,
+        p.material,
+        p.descripcion,
+        p.imagen
+      FROM producto p
+      LEFT JOIN stock s 
+        ON p.id_producto = s.id_producto
+      WHERE p.id_producto = ?
+    `, [id]);
 
-    const [result] = await pool.query(`
-      INSERT INTO producto
-      (nombre, altura, peso, stock, material, marca, precio, descripcion, imagen)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `, [
-      nombre,
-      altura,
-      peso,
-      stock || 0,
-      material,
-      marca,
-      precio,
-      descripcion,
-      imagen
-    ]);
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
 
-    res.status(201).json({
-      message: "Producto creado correctamente",
-      id_producto: result.insertId
-    });
+    res.json(results[0]);
 
   } catch (error) {
-    console.error("Error al crear producto:", error);
-    res.status(500).json({
-      error: "Error al crear producto",
-      details: error.message
-    });
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener producto" });
   }
 });
 
-// DELETE eliminar producto
+
+
+// CREATE: INSERTAR PRODUCTO NUEVO
+
+router.post('/', upload.single('imagen'), async (req, res) => {
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    const {
+      nombre,
+      marca,
+      peso,
+      material,
+      descripcion,
+      precio,
+      altura,
+      stock
+    } = req.body;
+
+    const imagen = req.file ? `uploads/${req.file.filename}` : null;
+
+    // 1. Insertar en tabla producto
+    const [result] = await connection.query(`
+      INSERT INTO producto (
+        nombre, marca, peso, material, descripcion, 
+        precio, altura, imagen
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `, [
+      nombre,
+      marca,
+      peso,
+      material,
+      descripcion,
+      precio,
+      altura,
+      imagen
+    ]);
+
+    const idProducto = result.insertId;
+
+    // 2. Insertar en tabla stock (inicializar)
+    await connection.query(`
+      INSERT INTO stock (id_producto, cantidad_actual, nivel_minimo)
+      VALUES (?, ?, ?)
+    `, [idProducto, stock || 0, 10]); // Nivel mínimo por defecto 10
+
+    await connection.commit();
+
+    res.status(201).json({
+      message: "Producto creado exitosamente",
+      id_producto: idProducto
+    });
+
+  } catch (error) {
+    await connection.rollback();
+    console.error("Error al crear producto:", error);
+    res.status(500).json({
+      error: "Error al crear el producto",
+      details: error.message
+    });
+  } finally {
+    connection.release();
+  }
+});
+
+
+
+// UPDATE: ACTUALIZAR PRODUCTO EXISTENTE
+
+router.put('/:id', upload.single('imagen'), async (req, res) => {
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    const { id } = req.params;
+    const {
+      nombre,
+      marca,
+      peso,
+      material,
+      descripcion,
+      precio,
+      altura,
+    } = req.body;
+
+    // Verificar que el producto existe
+    const [productoExistente] = await connection.query(
+      'SELECT imagen FROM producto WHERE id_producto = ?',
+      [id]
+    );
+
+    if (productoExistente.length === 0) {
+      await connection.rollback();
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    // Determinar la imagen a usar (nueva o mantener la existente)
+    const imagen = req.file
+      ? `uploads/${req.file.filename}`
+      : productoExistente[0].imagen;
+
+    // Actualizar producto
+    await connection.query(`
+      UPDATE producto 
+      SET nombre = ?, marca = ?, peso = ?, material = ?, 
+          descripcion = ?, precio = ?, altura = ?, imagen = ?
+      WHERE id_producto = ?
+    `, [
+      nombre,
+      marca,
+      peso,
+      material,
+      descripcion,
+      precio,
+      altura,
+      imagen,
+      id
+    ]);
+
+    await connection.commit();
+
+    res.status(200).json({
+      message: "Producto actualizado exitosamente",
+      id_producto: id
+    });
+
+  } catch (error) {
+    await connection.rollback();
+    console.error("Error al actualizar producto:", error);
+    res.status(500).json({
+      error: "Error al actualizar el producto",
+      details: error.message
+    });
+  } finally {
+    connection.release();
+  }
+});
+
+
+
+// DELETE: ELIMINAR PRODUCTO EXISTENTE
+
 router.delete('/:id', async (req, res) => {
   const connection = await pool.getConnection();
   try {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2026 a las 21:36:01
+-- Tiempo de generación: 23-02-2026 a las 05:17:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -115,7 +115,11 @@ INSERT INTO `entrada` (`id_movimiento`, `id_proveedor`, `precio_unitario`, `lote
 (2, 1, 11500.00, 'BER-2024-01', 'Entrada de 15 rollos de Bermuda'),
 (3, 1, 50000.00, 'SYN-2024-01', 'Compra inicial de grama sintética'),
 (4, 1, 20000.00, 'ABO-2024-01', 'Lote de abono orgánico compostado'),
-(5, 1, 15000.00, 'HER-2024-01', 'Entrada de tijeras GardenTools');
+(5, 1, 15000.00, 'HER-2024-01', 'Entrada de tijeras GardenTools'),
+(11, 1, NULL, NULL, 'Entrada registrada el 2026-02-23'),
+(12, 1, NULL, NULL, 'Entrada registrada el 2026-02-23'),
+(14, 1, NULL, NULL, 'Entrada registrada el 2026-02-23'),
+(15, 1, NULL, NULL, 'Entrada registrada el 2026-02-23');
 
 -- --------------------------------------------------------
 
@@ -147,7 +151,11 @@ INSERT INTO `movimiento` (`id_movimiento`, `id_producto`, `id_usuario`, `fecha`,
 (7, 2, 4, '2025-11-21 11:51:59', 1, 'Venta a Sofía Torres', 'salida'),
 (8, 3, 5, '2025-11-21 11:51:59', 1, 'Venta a Andrés Ramírez', 'salida'),
 (9, 4, 3, '2025-11-21 11:51:59', 3, 'Venta de abono orgánico', 'salida'),
-(10, 5, 4, '2025-11-21 11:51:59', 1, 'Venta de tijeras', 'salida');
+(10, 5, 4, '2025-11-21 11:51:59', 1, 'Venta de tijeras', 'salida'),
+(11, 1, 1, '2026-02-22 20:53:07', 50, 'Entrada registrada el 2026-02-23', 'entrada'),
+(12, 1, 1, '2026-02-22 20:54:43', 30, 'Entrada registrada el 2026-02-23', 'entrada'),
+(14, 6, 1, '2026-02-22 21:28:58', 15, 'Entrada registrada el 2026-02-23', 'entrada'),
+(15, 6, 1, '2026-02-22 21:37:45', 20, 'Entrada registrada el 2026-02-23', 'entrada');
 
 -- --------------------------------------------------------
 
@@ -167,7 +175,6 @@ CREATE TABLE `producto` (
   `id_categoria` int(10) UNSIGNED DEFAULT NULL COMMENT 'FK -> categoria(id_categoria). Categoria del producto (opcional).',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'Fecha de alta del producto.',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'Ultima actualizacion de datos del producto.',
-  `stock` int(11) DEFAULT 0,
   `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Catalogo de productos manejados por el inventario.';
 
@@ -175,15 +182,15 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id_producto`, `nombre`, `marca`, `peso`, `material`, `descripcion`, `precio`, `altura`, `id_categoria`, `created_at`, `updated_at`, `stock`, `imagen`) VALUES
-(1, 'ProFut 50', 'GreenTurf', 2.75, 'Polietileno (PE)', 'Grama de alto rendimiento para canchas de fútbol 7 y 11, resistente a tráfico intenso y rayos UV.', 89900.00, 50, 1, '2025-11-21 11:51:59', '2026-02-17 15:23:24', 0, 'GramaSintéticaProFut50.jpg'),
-(2, 'HomeGarden 30', 'EcoGrass', 2.10, 'Polietileno + Polipropileno', 'Ideal para jardines residenciales, suave al tacto y con drenaje rápido.', 54500.00, 30, 2, '2025-11-21 11:51:59', '2026-02-17 15:23:49', 0, 'GramaSintéticaHomeGarden30.jpg'),
-(3, 'UrbanDeck 20', 'CityTurf', 1.85, 'Polipropileno (PP)', 'Diseñada para terrazas y balcones, ligera y fácil de instalar.', 42000.00, 20, 3, '2025-11-21 11:51:59', '2026-02-17 15:24:13', 0, 'GramaSintéticaUrbanDeck20.jpg'),
-(4, 'DecoLux 15', 'DecoGreen', 1.40, 'Fibrilado', 'Uso decorativo interior y vitrinas comerciales, acabado estético y uniforme.', 35900.00, 15, 4, '2025-11-21 11:51:59', '2026-02-17 15:24:28', 0, 'GramaSintéticaDecoLux15.jpg'),
-(5, 'EventPro 25', 'FastGrass', 1.95, 'Polietileno (PE)', 'Instalación rápida para ferias y eventos temporales, enrollable y reutilizable.', 48300.00, 25, 5, '2025-11-21 11:51:59', '2026-02-17 15:24:42', 0, 'GramaSintéticaEventPro25.jpg'),
-(6, 'Arena Sílica Lavada', 'BuildSupplies', 25.00, 'Arena Sílica', 'Relleno para grama sintética deportiva y residencial, mejora estabilidad y drenaje.', 32000.00, NULL, 6, '2026-02-16 15:21:25', '2026-02-17 15:20:18', 0, 'ArenaSílicaLavada.jpg'),
-(7, 'Caucho Granulado', 'RubberFill', 20.00, 'Caucho reciclado SBR', 'Relleno amortiguante para canchas deportivas, reduce impacto y mejora rebote.', 75000.00, NULL, 6, '2026-02-16 15:22:22', '2026-02-17 15:22:02', 0, 'CauchoGranulado.jpg'),
-(8, 'PetFriendly 35', 'PetZone', 2.30, 'Polietileno Antibacteriano', 'Especial para mascotas, con sistema de drenaje reforzado y control de olores.', 67800.00, 35, 7, '2026-02-16 15:23:32', '2026-02-17 15:25:11', 0, 'GramaPetFriendly35.jpg\r\n');
+INSERT INTO `producto` (`id_producto`, `nombre`, `marca`, `peso`, `material`, `descripcion`, `precio`, `altura`, `id_categoria`, `created_at`, `updated_at`, `imagen`) VALUES
+(1, 'ProFut 50', 'GreenTurf', 2.75, 'Polietileno (PE)', 'Grama de alto rendimiento para canchas de fútbol 7 y 11, resistente a tráfico intenso y rayos UV.', 89900.00, 50, 1, '2025-11-21 11:51:59', '2026-02-22 21:18:28', 'GramaSintéticaProFut50.jpg'),
+(2, 'HomeGarden 30', 'EcoGrass', 2.10, 'Polietileno + Polipropileno', 'Ideal para jardines residenciales, suave al tacto y con drenaje rápido.', 54500.00, 30, 2, '2025-11-21 11:51:59', '2026-02-17 15:23:49', 'GramaSintéticaHomeGarden30.jpg'),
+(3, 'UrbanDeck 20', 'CityTurf', 1.85, 'Polipropileno (PP)', 'Diseñada para terrazas y balcones, ligera y fácil de instalar.', 42000.00, 20, 3, '2025-11-21 11:51:59', '2026-02-17 15:24:13', 'GramaSintéticaUrbanDeck20.jpg'),
+(4, 'DecoLux 15', 'DecoGreen', 1.40, 'Fibrilado', 'Uso decorativo interior y vitrinas comerciales, acabado estético y uniforme.', 35900.00, 15, 4, '2025-11-21 11:51:59', '2026-02-17 15:24:28', 'GramaSintéticaDecoLux15.jpg'),
+(5, 'EventPro 25', 'FastGrass', 1.95, 'Polietileno (PE)', 'Instalación rápida para ferias y eventos temporales, enrollable y reutilizable.', 48300.00, 25, 5, '2025-11-21 11:51:59', '2026-02-17 15:24:42', 'GramaSintéticaEventPro25.jpg'),
+(6, 'Arena Sílica Lavada', 'BuildSupplies', 25.00, 'Arena Sílica', 'Relleno para grama sintética deportiva y residencial, mejora estabilidad y drenaje.', 32000.00, NULL, 6, '2026-02-16 15:21:25', '2026-02-17 15:20:18', 'ArenaSílicaLavada.jpg'),
+(7, 'Caucho Granulado', 'RubberFill', 20.00, 'Caucho reciclado SBR', 'Relleno amortiguante para canchas deportivas, reduce impacto y mejora rebote.', 75000.00, NULL, 6, '2026-02-16 15:22:22', '2026-02-17 15:22:02', 'CauchoGranulado.jpg'),
+(8, 'PetFriendly 35', 'PetZone', 2.30, 'Polietileno Antibacteriano', 'Especial para mascotas, con sistema de drenaje reforzado y control de olores.', 67800.00, 35, 7, '2026-02-16 15:23:32', '2026-02-17 15:25:11', 'GramaPetFriendly35.jpg\r\n');
 
 -- --------------------------------------------------------
 
@@ -269,11 +276,14 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id_producto`, `cantidad_actual`, `nivel_minimo`, `ultima_actualizacion`) VALUES
-(1, 50, 10, '2025-11-21 11:51:59'),
+(1, 30, 10, '2026-02-22 20:54:43'),
 (2, 30, 5, '2025-11-21 11:51:59'),
 (3, 20, 5, '2025-11-21 11:51:59'),
 (4, 40, 10, '2025-11-21 11:51:59'),
-(5, 25, 5, '2025-11-21 11:51:59');
+(5, 25, 5, '2025-11-21 11:51:59'),
+(6, 20, 5, '2026-02-22 21:37:45'),
+(7, 0, 5, '2026-02-22 21:37:20'),
+(8, 0, 5, '2026-02-22 21:37:20');
 
 -- --------------------------------------------------------
 
@@ -416,13 +426,13 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `id_movimiento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'PK: Identificador del movimiento padre (registro comun).', AUTO_INCREMENT=11;
+  MODIFY `id_movimiento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'PK: Identificador del movimiento padre (registro comun).', AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'PK: Identificador del producto. Referenciado por stock y movimiento.', AUTO_INCREMENT=9;
+  MODIFY `id_producto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'PK: Identificador del producto. Referenciado por stock y movimiento.', AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`

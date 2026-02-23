@@ -21,12 +21,17 @@ export default function AdminDashboard() {
 
 const obtenerDatos = async () => {
   try {
+
     // 🔹 Productos
     const productosRes = await fetch("http://localhost:3001/api/inventario");
     const productosData = await productosRes.json();
     setProductos(productosData);
 
-    // 🔹 Stock (IGUAL QUE EN EL PANEL ANTIGUO)
+    // 🔹 Usuarios (ahora reales)
+    const usuariosRes = await fetch("http://localhost:3001/api/usuarios");
+    const usuariosData = await usuariosRes.json();
+
+    // 🔹 Stock
     const stockRes = await fetch("http://localhost:3001/api/stock");
     const stockData = await stockRes.json();
 
@@ -40,7 +45,7 @@ const obtenerDatos = async () => {
     ).length;
 
     setStats({
-      usuarios: 5,
+      usuarios: usuariosData.length, // 👈 ahora real
       productos: productosData.length,
       stock: totalStock,
       agotados
@@ -119,10 +124,13 @@ const obtenerDatos = async () => {
                 <th>Producto</th>
                 <th>Altura</th>
                 <th>Peso</th>
+                <th>Material</th>
+                <th>Marca</th>
                 <th>Precio</th>
                 <th>Extras</th>
               </tr>
             </thead>
+
             <tbody>
               {productos.map(p => (
                 <tr key={p.id_producto}>
@@ -130,8 +138,17 @@ const obtenerDatos = async () => {
                   <td>{p.nombre}</td>
                   <td>{p.altura ? `${p.altura} mm` : "N/A"}</td>
                   <td>{p.peso ? `${p.peso} kg` : "N/A"}</td>
+                  <td>{p.material || "N/A"}</td>
+                  <td>{p.marca || "N/A"}</td>
                   <td>${p.precio}</td>
-                  <td><button className="btn-extra" onClick={() => navigate("/insertarProducto")}>Detalles</button></td>
+                  <td>
+                    <button
+                      className="btn-extra"
+                      onClick={() => navigate(`/editar-producto/${p.id_producto}`)}
+                    >
+                      Modificar
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

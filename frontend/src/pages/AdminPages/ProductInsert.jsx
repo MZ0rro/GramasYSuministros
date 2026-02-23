@@ -10,7 +10,6 @@ const [formData, setFormData] = useState({
   nombre: "",
   altura: "",
   peso: "",
-  stock: 0,
   material: "",
   marca: "",
   precio: "",
@@ -58,7 +57,6 @@ const [formData, setFormData] = useState({
       data.append("nombre", formData.nombre);
       data.append("altura", formData.altura);
       data.append("peso", formData.peso);
-      data.append("stock", formData.stock);
       data.append("material", formData.material);
       data.append("marca", formData.marca);
       data.append("precio", formData.precio);
@@ -92,7 +90,6 @@ const [formData, setFormData] = useState({
           nombre: "",
           altura: "",
           peso: "",
-          stock: 0,
           material: "",
           marca: "",
           precio: "",
@@ -134,238 +131,97 @@ const [formData, setFormData] = useState({
     document.getElementById("inputImagen").click();
   };
 
-  return (
+return (
     <>
       <NavComponent />
 
-      <div className="insert-wrapper">
-  <div className="insert-card">
-    <div className="insert-header">
-      <h2>Agregar Nuevo Producto</h2>
-      <p>Completa la información para añadirlo al catálogo</p>
-    </div>
+      <div className="insert-container">
+        <div className="insert-header">
+          <h2>Agregar Producto</h2>
+          <p>Gestión de inventario</p>
+        </div>
 
-
-        {/* Mensaje de éxito o error */}
         {mensaje.texto && (
-          <div style={{
-            padding: "15px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            textAlign: "center",
-            backgroundColor: mensaje.tipo === "success" ? "#d4edda" : "#f8d7da",
-            color: mensaje.tipo === "success" ? "#155724" : "#721c24",
-            border: `1px solid ${mensaje.tipo === "success" ? "#c3e6cb" : "#f5c6cb"}`
-          }}>
+          <div className={`alert ${mensaje.tipo}`}>
             {mensaje.texto}
           </div>
         )}
 
-        <form className="form-grid" onSubmit={handleSubmit}>
-          {/* COLUMNA IZQUIERDA */}
-          <div className="left-column">
-            {/* Campo 01 - Nombre del producto */}
-            <div className="nombre-section">
-              <label>01</label>
-              <input
-                type="text"
-                name="nombre"
-                placeholder="..."
-                value={formData.nombre}
-                onChange={handleChange}
-                required
-              />
+        <form className="insert-grid" onSubmit={handleSubmit}>
+
+          {/* Columna Imagen */}
+          <div className="image-column">
+            <div className="image-box" onClick={() => document.getElementById("imagenInput").click()}>
+              {previewImage ? (
+                <img src={previewImage} alt="preview" />
+              ) : (
+                <span>Subir imagen</span>
+              )}
+            </div>
+            <input
+              id="imagenInput"
+              type="file"
+              name="imagen"
+              accept="image/*"
+              hidden
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Columna Datos 1 */}
+          <div className="data-column">
+            <div className="field">
+              <label>Nombre</label>
+              <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
             </div>
 
-            {/* Sección de imagen */}
-            <div className="image-section">
-              <div
-                className="image-box"
-                id="preview"
-                onClick={handleImageClick}
-                style={{ cursor: "pointer" }}
-              >
-                {previewImage ? (
-                  <img
-                    src={previewImage}
-                    alt="Preview"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      borderRadius: "15px",
-                    }}
-                  />
-                ) : (
-                  "png/jpg/jpeg"
-                )}
+            <div className="row">
+              <div className="field">
+                <label>Altura</label>
+                <input type="text" name="altura" value={formData.altura} onChange={handleChange} required />
               </div>
-              <input
-                type="file"
-                id="inputImagen"
-                name="imagen"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleChange}
-              />
+
+              <div className="field">
+                <label>Peso</label>
+                <input type="text" name="peso" value={formData.peso} onChange={handleChange} required />
+              </div>
             </div>
 
-            {/* Botones de acción */}
+            <div className="field">
+              <label>Material</label>
+              <input type="text" name="material" value={formData.material} onChange={handleChange} required />
+            </div>
+          </div>
+
+          {/* Columna Datos 2 */}
+          <div className="data-column">
+            <div className="field">
+              <label>Marca</label>
+              <input type="text" name="marca" value={formData.marca} onChange={handleChange} required />
+            </div>
+
+            <div className="field">
+              <label>Precio x m²</label>
+              <input type="text" name="precio" value={formData.precio} onChange={handleChange} required />
+            </div>
+
+            <div className="field grow">
+              <label>Descripción</label>
+              <textarea name="descripcion" value={formData.descripcion} onChange={handleChange}></textarea>
+            </div>
+
             <div className="actions">
-              <button className="btn" type="button" onClick={handleGoBack} disabled={loading}>
+              <button type="button" onClick={() => navigate(-1)} disabled={loading}>
                 Regresar
               </button>
-              <button className="btn" type="submit" disabled={loading}>
+              <button type="submit" disabled={loading}>
                 {loading ? "Guardando..." : "Guardar"}
               </button>
             </div>
           </div>
 
-          {/* COLUMNA DERECHA */}
-          <div className="right-column">
-            {/* Fila 1 */}
-            
-            <div className="fields-row">
-              <div className="field-compact">
-                <label>Altura</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="altura"
-                    placeholder="..."
-                    value={formData.altura}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="field-compact">
-                <label>Peso</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="peso"
-                    placeholder="..."
-                    value={formData.peso}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="field-compact">
-                <label>Stock</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="number"
-                    name="stock"
-                    value={formData.stock}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Fila 2: Material, Marca */}
-
-              <div className="field-compact">
-                <label>Material</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="material"
-                    placeholder="..."
-                    value={formData.material}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="field-compact">
-                <label>Marca</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="marca"
-                    placeholder="..."
-                    value={formData.marca}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Fila 3: Precio x m2*/}
-
-              <div className="field-compact">
-                <label>Precio x m2</label>
-                <div className="input-with-icon">
-                  <span className="edit-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                    </svg>
-                  </span>
-                  <input
-                    type="text"
-                    name="precio"
-                    placeholder="..."
-                    value={formData.precio}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-            {/* Descripción del producto */}
-            <div className="description">
-              <label>Descripción del producto</label>
-              <div className="textarea-with-icon">
-                <textarea
-                  name="descripcion"
-                  placeholder="..."
-                  value={formData.descripcion}
-                  onChange={handleChange}
-                ></textarea>
-                <span className="edit-icon-textarea">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                  </svg>
-                </span>
-              </div>
-            </div>
         </form>
       </div>
-        </div>
-
     </>
   );
 };

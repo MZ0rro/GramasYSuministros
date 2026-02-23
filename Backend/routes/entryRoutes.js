@@ -80,13 +80,6 @@ router.post('/', async (req, res) => {
       WHERE id_producto = ?
     `, [cantidad, id_producto]);
 
-        // 4. También actualizar el campo stock en la tabla producto
-        await connection.query(`
-      UPDATE producto 
-      SET stock = stock + ?
-      WHERE id_producto = ?
-    `, [cantidad, id_producto]);
-
         await connection.commit();
 
         res.status(201).json({
